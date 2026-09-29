@@ -1,10 +1,12 @@
+import { STORE_URL } from "../config";
 import { SECTIONS } from "../data";
 import { c, font, r } from "../theme";
 import type { Section } from "../types";
 import type { Store as S } from "../useStore";
 
 /**
- * The green rail: wordmark, navigation, store picker, the signed-in person.
+ * The green rail: wordmark, navigation, store picker, the storefront, the
+ * signed-in person.
  *
  * The badge counts are the two numbers worth interrupting somebody for — new
  * orders waiting, and products below par. Everything else you go and look at.
@@ -110,6 +112,28 @@ export function Sidebar({
             <option value="s3">Market Hall</option>
           </select>
         </div>
+
+        {/*
+          The customer half of the same shop. It sits under the store picker
+          because it answers the question the picker raises — what Riverside
+          currently looks like to somebody buying from it — and it opens in a
+          new tab so it never takes somebody away from a shift they are
+          part-way through.
+        */}
+        <a
+          href={STORE_URL}
+          target="_blank"
+          rel="noreferrer"
+          style={{
+            display: "flex", alignItems: "center", justifyContent: "space-between",
+            gap: 10, padding: "10px 14px", borderRadius: 12,
+            border: `1px solid rgba(244,238,225,.18)`,
+            color: c.cream, fontWeight: 700, fontSize: 13, textDecoration: "none",
+          }}
+        >
+          View storefront
+          <span aria-hidden>↗</span>
+        </a>
 
         <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "0 10px" }}>
           <span
