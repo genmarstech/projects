@@ -278,6 +278,24 @@ body {
   }
 
   /*
+   * One column, stated rather than inferred. `auto-fit` still reserves the gap
+   * for the track it collapsed, which made the checkout row 28px wider than
+   * its own grid and scrolled the whole page sideways — the only screen that
+   * did.
+   *
+   * `column-gap` goes with it, and is not tidying: naming one column leaves a
+   * collapsed second track behind, so the 28px is still subtracted before the
+   * `1fr` is measured. The summary then renders 28px narrower than the form it
+   * sits under, with its right edge short of everything else on the page. Only
+   * the column gap is dropped — `gap: 28` inline sets both, and the row gap is
+   * what separates the blocks now that they are stacked.
+   */
+  .checkoutLayout {
+    grid-template-columns: 1fr !important;
+    column-gap: 0 !important;
+  }
+
+  /*
    * The quantity steppers are 34px square. They are the control a thumb uses
    * most once there is a basket, they sit a few pixels apart, and one of them
    * removes something — a miss costs the shopper an item. 40px is the floor.

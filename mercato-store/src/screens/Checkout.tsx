@@ -116,7 +116,16 @@ export function Checkout({ s }: { s: StoreApi }) {
         Checkout
       </h1>
 
+      {/*
+        `auto-fit` leaves the collapsed second track's gap behind. Below the
+        breakpoint `min(100%,380px)` resolves to the full column width, the
+        summary's track collapses to zero, and the 28px gap is still counted —
+        so the row measures 28px wider than the grid holding it and the whole
+        page scrolls sideways. `styles.css` drops it to one column there; see
+        `.checkoutLayout`.
+      */}
       <div
+        className="checkoutLayout"
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit,minmax(min(100%,380px),1fr))",
