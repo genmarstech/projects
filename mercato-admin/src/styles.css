@@ -1,0 +1,158 @@
+/*
+ * Base styles, the two keyframes the design defines, and the handful of
+ * hover rules.
+ *
+ * Everything else is an inline style object on the component. That is
+ * unusual, and it is deliberate: the source is a single design file whose
+ * styling is entirely inline, and keeping the mapping one-to-one makes it
+ * possible to diff a component against the design by eye. Inventing a class
+ * system in the middle of the translation would make every future design
+ * update a guess.
+ *
+ * Hover is the exception, because it cannot be expressed inline at all —
+ * the design used a `style-hover` attribute its own runtime understood.
+ */
+
+html,
+body {
+  margin: 0;
+  background: #f4eee1;
+  color: #14201b;
+  font-family: Manrope, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button {
+  font-family: inherit;
+  color: inherit;
+}
+
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+img {
+  display: block;
+}
+
+a {
+  color: #0e3b2e;
+}
+
+a:hover {
+  color: #e2412f;
+}
+
+/* The live-orders dot. */
+@keyframes mcPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.8);
+    opacity: 0.3;
+  }
+}
+
+/* A just-arrived order row. */
+@keyframes mcIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ── hover, which inline styles cannot do ──────────────────────────────── */
+
+.nav-item:hover {
+  background: rgba(244, 238, 225, 0.12) !important;
+}
+
+.row-hover:hover {
+  background: #f1eadb !important;
+}
+
+/* Keyboard users get the same affordance as a pointer. */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid #e2412f;
+  outline-offset: 2px;
+}
+
+/*
+ * The design animates bars, meters and the drawer. Somebody who has asked
+ * their system not to animate should get the end state, not the journey.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ── narrow screens ─────────────────────────────────────────────────────
+ *
+ * ⚠ A DELIBERATE DIVERGENCE FROM THE DESIGN.
+ *
+ * The source makes the rail `position: sticky; height: 100vh` inside a
+ * wrapping flex row. That is right on a desktop and unusable on a phone:
+ * the rail claims a full viewport of green, and `main` — whose flex basis
+ * is 600px — wraps *underneath* it. You scroll a whole screen of navigation
+ * before reaching a single number.
+ *
+ * The design was only ever drawn at desktop width, so there is nothing to
+ * be faithful to here. Below 860px the rail becomes an ordinary
+ * full-width header: static, auto-height, with the navigation as a
+ * wrapping row of pills.
+ */
+@media (max-width: 860px) {
+  .rail {
+    position: static !important;
+    height: auto !important;
+    flex: 1 1 100% !important;
+    gap: 16px !important;
+  }
+
+  .rail-nav {
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    gap: 6px !important;
+  }
+
+  .rail-nav button {
+    height: 38px !important;
+    border-radius: 999px !important;
+    width: auto;
+  }
+
+  /* The store picker and the signed-in person sit side by side rather than
+     stacking, so the header stays shallow. */
+  .rail-foot {
+    margin-top: 0 !important;
+    flex-direction: row !important;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px !important;
+  }
+
+  .rail-foot > div:first-child {
+    flex: 1 1 180px;
+  }
+}
