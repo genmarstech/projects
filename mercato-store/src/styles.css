@@ -1,0 +1,362 @@
+/*
+ * Everything inline styles cannot express.
+ *
+ * The design file is styled entirely inline, and the components keep that
+ * one-to-one so a screen can be diffed against the design by eye. What lands
+ * here is only what an inline style has no syntax for: the reset, the two
+ * keyframes, hover, focus, the narrow breakpoint, and the reduced-motion
+ * opt-out.
+ *
+ * The design expressed hover through a `style-hover` attribute its runtime
+ * understood. React has no equivalent, and onMouseEnter/onMouseLeave state on
+ * forty elements would re-render a page on every pointer move — so each hover
+ * is a class here, named for what it does rather than where it is used.
+ */
+
+html,
+body {
+  margin: 0;
+  background: #f4eee1;
+  color: #14201b;
+  font-family: Manrope, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+button {
+  font-family: inherit;
+  color: inherit;
+}
+
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+img {
+  display: block;
+}
+
+a {
+  color: #0e3b2e;
+}
+a:hover {
+  color: #e2412f;
+}
+
+/* The page is held together by a horizontal rail; the page itself never scrolls sideways. */
+body {
+  overflow-x: hidden;
+}
+
+@keyframes mcMarquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes mcPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.8);
+    opacity: 0.3;
+  }
+}
+
+/* ── Hover ────────────────────────────────────────────────────────────────── */
+
+/* Primary actions rise a little. Two pixels, not six: this is a button, not a card. */
+.lift:hover {
+  transform: translateY(-2px);
+}
+.liftSmall:hover {
+  transform: translateY(-1px);
+}
+
+/* A ghost control on the dark hero ground. */
+.ghostOnDark:hover {
+  background: rgba(244, 238, 225, 0.1);
+}
+
+/* Header navigation. */
+.navBtn:hover {
+  background: rgba(244, 238, 225, 0.12);
+}
+
+/* Category tiles: the circle turns slightly as it grows, so seven of them in
+   a row do not read as one mechanical scale. */
+.catTile:hover .catTileArt {
+  transform: scale(1.06) rotate(-4deg);
+}
+
+/* Any photograph that grows inside its frame on hover. The transition is on
+   the image; the trigger is the frame, because the image overflows it. */
+.zoomFrame:hover .zoomImg {
+  transform: scale(1.06);
+}
+.zoomFrameLg:hover .zoomImg {
+  transform: scale(1.07);
+}
+
+/* Product cards. */
+.prodCard:hover {
+  box-shadow: 0 28px 50px -30px rgba(14, 59, 46, 0.5);
+}
+.prodCardRaise:hover {
+  box-shadow: 0 28px 50px -30px rgba(14, 59, 46, 0.5);
+  transform: translateY(-3px);
+}
+
+/* Add buttons, in their two grounds. */
+.addDark:hover {
+  background: #0e3b2e;
+}
+.addOutline:hover {
+  background: #14201b;
+  color: #f4eee1;
+}
+
+/* ── Focus ────────────────────────────────────────────────────────────────── */
+
+/*
+ * Every control in the design removes its border, and several sit on dark
+ * grounds where the default ring disappears. One visible ring, in the accent,
+ * with an offset so it is never mistaken for the control's own edge.
+ */
+:focus-visible {
+  outline: 2.5px solid #e2412f;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ── The harvest rail's two states ────────────────────────────────────────── */
+
+/*
+ * The rail is pinned only when all three of useScrollFx's conditions hold:
+ * PINNED_RAIL, a viewport wider than PIN_MIN_WIDTH, and no reduced-motion
+ * preference. The constant cannot change at runtime, so it is decided in the
+ * component and arrives as `railScrollPinned` / `railHintPinnable`; the other
+ * two are decided here, so the width that governs the rail is written once.
+ *
+ * The unpinned state is the base on purpose. A scroller that has not been told
+ * it is pinned must still be swipeable — this used to be an inline
+ * `overflowX: PINNED_RAIL ? "hidden" : "auto"`, which reads the constant and
+ * nothing else, so below 700px useScrollFx stopped pinning and cleared the
+ * transform while the scroller stayed `hidden` over a `max-content` track.
+ * Every card past the first was unreachable on a phone.
+ *
+ * If PIN_MIN_WIDTH moves, the `max-width: 700px` block below moves with it.
+ * That block and useScrollFx's `vw > 700` agree at every integer width; they
+ * are written from opposite sides, so do not widen one alone.
+ */
+.railScroll {
+  overflow-x: auto;
+}
+.railScrollPinned {
+  overflow-x: hidden;
+}
+
+.railHintPin {
+  display: none;
+}
+.railHintPinnable .railHintPin {
+  display: inline;
+}
+.railHintPinnable .railHintSwipe {
+  display: none;
+}
+
+/* ── Narrow viewports ─────────────────────────────────────────────────────── */
+
+@media (max-width: 700px) {
+  /*
+   * The header is `position: sticky`, so whatever it costs it costs on every
+   * screen for the whole session. Left to wrap it made five rows and 287px —
+   * a third of an 880px phone gone before a single product. These four rules
+   * fold it to three rows without touching the component: the wordmark and the
+   * navigation share the first, the search field claims the second, and the
+   * delivery toggle and the basket share the third.
+   */
+
+  /* The announcement strip is the only 62px here that costs nothing to drop:
+     the free-delivery threshold still runs in the home marquee and again on
+     checkout, and the promo code is offered in the cart's promo field. */
+  header > div:first-child {
+    display: none !important;
+  }
+
+  /* 36px of display italic is a desktop flourish. At this width it was taking
+     the top row on its own and pushing everything else down a line. */
+  header [aria-label="Mercato home"] span {
+    font-size: 26px !important;
+  }
+
+  /*
+   * Four destinations will not fit one line at this width, and letting them
+   * wrap cost a whole row. They scroll sideways instead — this is the one row
+   * on the page allowed to, because the document itself must not.
+   *
+   * The 120px basis is what keeps the nav beside the wordmark: on `auto` its
+   * content measures ~380px, the flex line cannot hold that next to the
+   * wordmark, and the nav drops to a row of its own — the row this is removing.
+   * The vertical padding is not spacing; `overflow-x` makes this a scroll
+   * container, which clips at the padding box, and without it the focus ring
+   * its offset draws outside each button is cut off.
+   */
+  header nav {
+    flex: 1 1 120px !important;
+    min-width: 0 !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    padding-block: 6px;
+    scrollbar-width: none;
+  }
+
+  /* Without these the nav does not scroll, it squashes: the buttons are flex
+     items, they shrink to min-content, and "Fresh produce" breaks over two
+     lines — 56px tall buttons and a row taller than the one this replaced.
+     The vertical padding is a thumb target, not spacing; 9px leaves 37px. */
+  header nav .navBtn {
+    flex: 0 0 auto !important;
+    white-space: nowrap;
+    padding-block: 11px !important;
+  }
+
+  /*
+   * Thumb targets. Everything below was sized for a pointer and lands under
+   * 40px on a phone: the wordmark is 26px of text with no box around it, the
+   * search input is 23px inside a 46px pill so its own padding is dead to a
+   * tap, and the submit and the two mode buttons were drawn to sit inside
+   * other things. None of this changes a row height — the rows are set by the
+   * nav and the basket, which are already taller.
+   */
+  header [aria-label="Mercato home"] {
+    padding-block: 8px !important;
+  }
+  header form input {
+    align-self: stretch !important;
+  }
+  header form button[type="submit"] {
+    height: 40px !important;
+  }
+  header [role="group"] button {
+    padding-block: 11px !important;
+  }
+
+  /* A full-width basis is what forces the line break after the wordmark and
+     nav, so the toggle and the basket land together on the last row instead of
+     taking one each. Its 200px floor goes with it, or it cannot shrink here. */
+  header form {
+    flex: 1 1 100% !important;
+    min-width: 0 !important;
+  }
+
+  /* The rail stops being scroll-driven below this width — see useScrollFx —
+     and becomes an ordinary swipe strip, so its cards must fit a phone. */
+  .railCard {
+    width: 78vw !important;
+    height: auto !important;
+    min-height: 420px;
+  }
+  /* The checkout summary un-sticks: stuck to the top of a phone it covers the
+     form it is summarising. */
+  .checkoutSummary {
+    position: static !important;
+  }
+
+  /*
+   * The quantity steppers are 34px square. They are the control a thumb uses
+   * most once there is a basket, they sit a few pixels apart, and one of them
+   * removes something — a miss costs the shopper an item. 40px is the floor.
+   * The aria-label is the hook because these carry no class; it names the
+   * product after the verb, so match only the verb.
+   */
+  [aria-label^="One more"],
+  [aria-label^="One fewer"] {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  /* Nothing pins below this width, so the rail hands scrolling back to the
+     browser and the hint stops promising motion that will not happen. */
+  .railScrollPinned {
+    overflow-x: auto;
+  }
+  .railHintPinnable .railHintPin {
+    display: none;
+  }
+  .railHintPinnable .railHintSwipe {
+    display: inline;
+  }
+}
+
+@media (max-width: 860px) {
+  /* The shop's filter column sits above the grid rather than beside it. */
+  .shopLayout {
+    grid-template-columns: 1fr !important;
+  }
+  .shopFilters {
+    max-width: none !important;
+  }
+  .shopGrid {
+    grid-column: auto !important;
+  }
+  /* The subscribe panel is a sidebar ornament; on one column it is a wall. */
+  .shopPromo {
+    display: none !important;
+  }
+}
+
+/* ── Reduced motion ───────────────────────────────────────────────────────── */
+
+/*
+ * The scroll-driven rail and the parallax layers are exactly what this
+ * setting exists to turn off: the page moving in a direction the scroll did
+ * not ask for. `useScrollFx` reads the same query and stops writing
+ * transforms; this half stops the animations CSS owns.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  /* The marquee carries six real claims about the shop. Stopped dead it shows
+     the first two and hides the rest, so it scrolls by hand instead. */
+  .marqueeTrack {
+    animation: none !important;
+    width: auto !important;
+  }
+  .marquee {
+    overflow-x: auto !important;
+  }
+
+  /* useScrollFx refuses to pin under this setting at any width, so the rail
+     needs the same fallback the narrow block gives it — otherwise the cards
+     sit behind a frozen scroller on a desktop that asked for less motion. */
+  .railScrollPinned {
+    overflow-x: auto;
+  }
+  .railHintPinnable .railHintPin {
+    display: none;
+  }
+  .railHintPinnable .railHintSwipe {
+    display: inline;
+  }
+}

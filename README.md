@@ -6,16 +6,24 @@ design implementations. One folder per project, each standing on its own.
 | Project | What it is | Stack |
 |---|---|---|
 | [`mercato-admin`](./mercato-admin) | Grocery store operations dashboard — orders, inventory, delivery slots, team | Vite · React · TypeScript |
+| [`mercato-store`](./mercato-store) | The same shop's storefront — aisles, basket, checkout, order tracking | Vite · React · TypeScript |
 
 ## How this repo is arranged
 
 **One folder per project, independent.** Each has its own `package.json`,
 its own lockfile and its own stack. `cd` into one, install, run.
 
-That is deliberate rather than lazy. These are unrelated pieces of work for
-different briefs, and a workspace monorepo would tie a grocery dashboard's
-React version to whatever lands next. Coupling projects that share nothing
+That is deliberate rather than lazy. These are separate pieces of work for
+separate briefs, and a workspace monorepo would tie a grocery dashboard's
+React version to whatever lands next. Coupling projects that need not agree
 buys a smaller `node_modules` and costs the ability to pin anything.
+
+Two of them share a brand rather than a build. `mercato-admin` and
+`mercato-store` are the staff and customer halves of one shop and carry the
+same palette and the same three typefaces — each copied into its own
+`theme.ts`, not imported from a shared package. A duplicated palette is the
+cheaper mistake: extracting it would make a colour change in one deploy a
+rebuild of the other, for two projects that are each finished.
 
 Each project carries its own README with what it is and how to run it.
 
