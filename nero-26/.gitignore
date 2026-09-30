@@ -6,11 +6,3 @@ tsconfig.tsbuildinfo
 .vercel
 .env*
 
-# ── the two images that came with the design ─────────────────────────────────
-# Held out of git deliberately. `genmarstech/projects` is a PUBLIC repository,
-# and car.jpg is a render of a real Formula 1 car carrying a real team's marks
-# and its sponsors' logos — committing it publishes it under the company's
-# name. See the warning at the top of README.md. Remove these two lines once a
-# licensing decision is recorded, or replace the files first.
-public/assets/car.jpg
-public/assets/helmet.jpg

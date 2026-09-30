@@ -1,3 +1,4 @@
+import { DRIVER_SHOT, HERO_SHOT } from "../data";
 import { c, font, stretch } from "../theme";
 import type { StoreApi } from "../useStore";
 
@@ -164,7 +165,23 @@ export function Footer({ store }: { store: StoreApi }) {
           textTransform: "uppercase",
         }}
       >
-        <span>Concept website · not affiliated with any team</span>
+        {/*
+          The hero and the driver photographs fill a screen each and cannot
+          carry a caption without sitting on the design, and neither appears
+          in the lightbox that credits the gallery. Unsplash's licence still
+          wants attribution, so it is printed here.
+        */}
+        <span>
+          Concept website · not affiliated with any team · photography by{" "}
+          <a href={HERO_SHOT.href} target="_blank" rel="noreferrer" style={{ color: c.faint }}>
+            {HERO_SHOT.credit}
+          </a>{" "}
+          and{" "}
+          <a href={DRIVER_SHOT.href} target="_blank" rel="noreferrer" style={{ color: c.faint }}>
+            {DRIVER_SHOT.credit}
+          </a>{" "}
+          on Unsplash
+        </span>
         <a href="#top" data-hover className="backToGrid" style={{ color: c.ink }}>
           Back to grid ↑
         </a>

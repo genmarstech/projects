@@ -1,4 +1,4 @@
-import { DRIVER_QUOTE, DRIVER_STATS } from "../data";
+import { DRIVER_QUOTE, DRIVER_SHOT, DRIVER_STATS } from "../data";
 import { c, ease, font, stretch } from "../theme";
 
 /**
@@ -31,13 +31,13 @@ export function Driver() {
         >
           <img
             data-helmet-img
-            src="assets/helmet.jpg"
-            alt="The driver's helmet, visor closed"
+            src={DRIVER_SHOT.src}
+            alt={DRIVER_SHOT.alt}
             style={{
               width: "100%",
               height: "100%",
               objectFit: "cover",
-              objectPosition: "50% 30%",
+              objectPosition: "50% 50%",
               display: "block",
               transform: "scale(1.35)",
               willChange: "transform",

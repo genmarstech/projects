@@ -1,3 +1,4 @@
+import { HERO_SHOT } from "../data";
 import { c, font, stretch } from "../theme";
 
 /**
@@ -19,9 +20,9 @@ export function Hero() {
     >
       <div data-hero-img style={{ position: "absolute", inset: 0, willChange: "transform" }}>
         <img
-          src="assets/car.jpg"
-          alt="The Nero SF-N concept car in side profile"
-          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% 62%", display: "block" }}
+          src={HERO_SHOT.src}
+          alt={HERO_SHOT.alt}
+          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% 58%", display: "block" }}
         />
       </div>
 

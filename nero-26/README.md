@@ -19,36 +19,30 @@ npm run preview   # serve that bundle
 
 ---
 
-## ⚠ Before this is published anywhere
+## A note on the imagery
 
-**The hero image is a real Ferrari, not concept art.** `public/assets/car.jpg`
-is a render of a current-generation Formula 1 car in a black livery carrying
-the prancing horse, car number 16, and the marks of Shell, Santander, Richard
-Mille, Ray-Ban, HCLTech, VGW, AWS, Pirelli, Brembo, NGK and SKF.
-`public/assets/helmet.jpg` came from the same set. Both arrived with the
-design file, where they are credited as "concept imagery".
+The design shipped two local images, `assets/car.png` and `assets/helmet.png`,
+credited in the design file as "concept imagery". They were not. They were
+renders of a real team's car and helmet carrying its sponsors' marks — and
+garbled imitations of their lettering ("MA HHILE", "LIOZAIR"), the signature
+of an AI render copying real trade dress. A footer line reading "not
+affiliated with any team" does not licence somebody else's marks.
 
-They are not concept imagery, and the footer line "Concept website · not
-affiliated with any team" does not licence somebody else's trade dress. This
-matters more than usual here, because the whole design is built to look like
-a team's own site.
+**Both were replaced with Unsplash photographs and the local files deleted.**
+Every image on the page now comes from Unsplash, under its licence, with the
+photographer credited and linked — the gallery in the lightbox, and the two
+full-screen shots in the footer, since those never appear in the lightbox.
 
-Nothing has been cleared. The credits in `src/data.ts` now say what is
-actually known rather than repeating the design's claim, and **both files are
-held out of git** — `genmarstech/projects` is public, so committing them
-would publish them under the company's name. `.gitignore` says so at the
-bottom. Run `npm run dev` and the two `<img>` tags 404 until you put them
-back in `public/assets/`.
+The hero and the driver were chosen to carry no works team's marks at all: a
+dark track car and an unbranded monochrome one. One gallery photograph does
+show a liveried car. That is a licensed photograph, credited and linked,
+which is ordinary editorial use rather than a claim of association — a
+different thing from a synthetic image imitating a brand.
 
-**Decide this before deploying**, and especially before listing it on
-`genmars.co.ke/work`:
-
-- replace both images with licensed or generated ones, or
-- keep them for a private demo that is never linked publicly, or
-- confirm a licence exists.
-
-Charter 04 §IV — nothing untrue on a Genmars surface — is the reason this is
-at the top of the file rather than a footnote.
+One thing left deliberately: the driver's car number is **16**, as the design
+had it. A race number is not a mark, but combined with red and an Italian
+team name it is the last echo of the original. Change it in
+`DRIVER_STATS` if you would rather it were not there.
 
 ---
 
@@ -134,18 +128,18 @@ keyboard.
 close button and locks body scroll; the design did neither, so the gallery
 scrolled underneath the picture you were looking at.
 
-## The images, and why they are .jpg
+## The images the design shipped, and what happened to them
 
-The design's `assets/car.png` and `assets/helmet.png` could not be read
-whole: the design API caps a file read at 256 KiB and both PNGs are larger,
-so what came back was exactly 192 KiB of valid PNG with no `IEND` chunk —
-truncated, not corrupt, which is harder to notice.
+Worth recording, because the failure was quiet. `assets/car.png` and
+`assets/helmet.png` could not be read whole: the design API caps a file read
+at 256 KiB and both PNGs are larger, so what came back was exactly 192 KiB of
+valid PNG with no `IEND` chunk — truncated, not corrupt, which is harder to
+notice. The JPEG sources in the same project were under the cap and did come
+back whole; they arrive rotated 90°, and `jpegtran` turned them back
+losslessly to exactly the PNGs' dimensions.
 
-The same project holds the JPEG sources those PNGs were made from, and both
-are under the cap. They arrive rotated 90°, so they were turned back with
-`jpegtran` (lossless, no re-encode) and now match the PNGs' dimensions
-exactly: 1472×736 and 1312×736. Read the warning at the top of this file
-before assuming they are usable.
+Rotating them upright is what made them legible, and legible is what showed
+what they actually were. They are no longer in the repository.
 
 ## Layout
 
@@ -193,4 +187,6 @@ are real places; nothing else here is.
 ## Deploying
 
 Vercel, as a static build — `npm run build` and the contents of `dist/`, with
-no server-side anything. See the warning at the top before making it public.
+no server-side anything. Every image is fetched from the Unsplash CDN at
+runtime rather than re-hosted, which is what their licence asks for, so the
+deployment carries no photography of its own.

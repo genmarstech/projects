@@ -18,22 +18,34 @@ import type {
  * than measured — they are set dressing for a design piece, and nothing in
  * this repository should present them as a specification.
  *
- * ⚠ THE TWO LOCAL IMAGES CONTRADICT THAT, AND HAVE NOT BEEN CLEARED.
+ * ── EVERY PHOTOGRAPH IS LICENSED, AND EVERY ONE CARRIES ITS CREDIT ──────────
  *
- *   `assets/car.jpg` is a render of a real Formula 1 car carrying a real
- *   team's marks — the prancing horse, car number 16, and the livery of
- *   Shell, Santander, Richard Mille, Ray-Ban, HCLTech, VGW, AWS, Pirelli,
- *   Brembo, NGK and SKF. `assets/helmet.jpg` came from the same set. They
- *   arrived with the design file, credited there as "concept imagery", which
- *   they are not.
+ * The design shipped two local images, `assets/car.png` and
+ * `assets/helmet.png`, credited in the design file as "concept imagery". They
+ * were renders of a real team's car and helmet, carrying its sponsors' marks
+ * and garbled imitations of their lettering. A footer line saying "not
+ * affiliated with any team" does not licence somebody else's trade dress, and
+ * Charter 04 §IV does not allow a credit that says otherwise, so both were
+ * replaced with Unsplash photographs and the local files deleted.
  *
- *   A footer line saying "not affiliated with any team" does not licence
- *   somebody else's trade dress, and Charter 04 §IV does not allow a credit
- *   that says otherwise — so the credits below say what is actually known.
- *   See the README before this is published anywhere public.
+ * The two that fill a screen — the hero and the driver — were chosen to carry
+ * no works team's marks at all. One photograph in the gallery does show a
+ * liveried car; it is a licensed photograph, credited and linked, which is
+ * ordinary editorial use rather than a claim of association.
+ *
+ * ⚠ THE CREDIT TRAVELS WITH THE PHOTOGRAPH. Unsplash's licence requires
+ *   attribution. The lightbox prints `credit` as a link for every gallery
+ *   shot, and the footer prints the same for the hero and the driver, which
+ *   never appear in the lightbox. An entry without a credit is a licence
+ *   breach that looks like a missing caption.
+ *
+ * ⚠ UNSPLASH REASSIGNS IDS, AND ONE OF THESE ALT TEXTS WAS ALREADY WRONG.
+ *   The design described photo 1614949194403 as "a red and black F1 car"; it
+ *   is a dark silver car against red and blue kerbs. Look at a photograph
+ *   before you describe it.
  */
 
-/** Unsplash CDN address for a photo id, at the width the grid actually uses. */
+/** Unsplash CDN address for a photo id, at the width the layout actually uses. */
 const U = (id: string, w = 1800) =>
   `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=80`;
 
@@ -60,6 +72,26 @@ export const COMPOUNDS: Compound[] = [
   { name: "Inter", color: "#3dbe5b", grip: 74, life: 58, temp: "40–90°C", pace: "Damp" },
   { name: "Wet", color: "#2f7bff", grip: 70, life: 52, temp: "30–70°C", pace: "Standing water" },
 ];
+
+/**
+ * The two photographs that are not in the gallery.
+ *
+ * Each fills a whole screen, so neither can carry a caption without sitting
+ * on the design. The footer credits both instead — see `Footer.tsx`.
+ */
+export const HERO_SHOT = {
+  src: U("1614949194403-9602bdc14a3a", 2400),
+  alt: "A dark formula car on track, seen from behind against red and blue kerbs",
+  credit: "Clément Delacre",
+  href: "https://unsplash.com/photos/M5s9Ffs1KqU",
+};
+
+export const DRIVER_SHOT = {
+  src: U("1638552708183-52e302a55e15", 2000),
+  alt: "A formula car head-on in monochrome, lit against a black ground",
+  credit: "Chethan Kanakamurthy",
+  href: "https://unsplash.com/photos/DAhUu3oe64I",
+};
 
 /**
  * The four callouts on the pinned car, with the model-space point each one
@@ -124,31 +156,20 @@ export const RACES: Race[] = [
 /**
  * The paddock grid, and the lightbox behind it.
  *
- * ⚠ THE CREDIT TRAVELS WITH THE PHOTOGRAPH. Unsplash's licence requires
- *   attribution, and the lightbox prints `credit` as a link to `href`. An
- *   entry with a remote `src` and no credit is a licence breach that looks
- *   like a missing caption — the two local renders are the only ones exempt,
- *   because they came with the design.
+ * Six shots rather than the design's eight: the two local renders are gone
+ * and the spans were rebalanced rather than left with holes in them. The grid
+ * is twelve columns, so every row has to total twelve — 7+5, then 5 beside
+ * the first tile's second row, then 4+4+4.
  */
 export const GALLERY: Shot[] = [
   {
-    src: "assets/helmet.jpg",
+    src: U("1543061647-e034089f6a2b"),
     col: "span 7",
     row: "span 2",
-    pos: "50% 40%",
-    n: "01",
-    title: "Visor down",
-    alt: "Driver helmet in close-up, visor lowered",
-    credit: "Source image supplied with the design — provenance unconfirmed",
-  },
-  {
-    src: U("1543061647-e034089f6a2b"),
-    col: "span 5",
-    row: "span 1",
     pos: "50% 50%",
-    n: "02",
+    n: "01",
     title: "Two seconds flat",
-    alt: "Pit crew swarming a Formula 1 car during a stop",
+    alt: "Pit crew swarming a race car during a stop",
     credit: "Photo by Chi Hang Leong on Unsplash",
     href: "https://unsplash.com/photos/f4Ct41XVGag",
   },
@@ -157,7 +178,7 @@ export const GALLERY: Shot[] = [
     col: "span 5",
     row: "span 1",
     pos: "50% 50%",
-    n: "03",
+    n: "02",
     title: "Grid walk",
     alt: "Crew gathered around a race car on the starting grid",
     credit: "Photo by Marc Kleen on Unsplash",
@@ -165,33 +186,23 @@ export const GALLERY: Shot[] = [
   },
   {
     src: U("1614949194403-9602bdc14a3a"),
-    col: "span 4",
-    row: "span 2",
+    col: "span 5",
+    row: "span 1",
     pos: "50% 50%",
-    n: "04",
-    title: "Red on black",
-    alt: "Red and black Formula 1 car on track",
+    n: "03",
+    title: "Into the kerbs",
+    alt: "A dark formula car on track, seen from behind against red and blue kerbs",
     credit: "Photo by Clément Delacre on Unsplash",
     href: "https://unsplash.com/photos/M5s9Ffs1KqU",
-  },
-  {
-    src: "assets/car.jpg",
-    col: "span 8",
-    row: "span 2",
-    pos: "30% 60%",
-    n: "05",
-    title: "SF-N, livery reveal",
-    alt: "Formula 1 car in side profile, black livery with red markings",
-    credit: "Source image supplied with the design — provenance unconfirmed",
   },
   {
     src: U("1763514354318-4dc78884b26c"),
     col: "span 4",
     row: "span 2",
     pos: "50% 50%",
-    n: "06",
+    n: "04",
     title: "Head on",
-    alt: "Front view of a red Formula 1 car",
+    alt: "Front view of a red formula car",
     credit: "Photo by Veerender Mothukuri on Unsplash",
     href: "https://unsplash.com/photos/iToMHOihS2A",
   },
@@ -200,9 +211,9 @@ export const GALLERY: Shot[] = [
     col: "span 4",
     row: "span 2",
     pos: "50% 50%",
-    n: "07",
+    n: "05",
     title: "Flat out",
-    alt: "Red race car at speed, panned",
+    alt: "A red race car at speed, panned",
     credit: "Photo by Mark Jeremy on Unsplash",
     href: "https://unsplash.com/photos/MpgTrJ4vIxk",
   },
@@ -211,9 +222,9 @@ export const GALLERY: Shot[] = [
     col: "span 4",
     row: "span 2",
     pos: "50% 50%",
-    n: "08",
+    n: "06",
     title: "Monochrome",
-    alt: "Black and white photograph of a racing car",
+    alt: "A formula car head-on in monochrome, lit against a black ground",
     credit: "Photo by Chethan Kanakamurthy on Unsplash",
     href: "https://unsplash.com/photos/DAhUu3oe64I",
   },
@@ -222,11 +233,9 @@ export const GALLERY: Shot[] = [
 /**
  * Which gallery shot previews beside the cursor for each calendar row.
  *
- * Indices into `GALLERY`, one per race, in the order the rows appear. The
- * first two rows deliberately skip the local renders — a preview of the car
- * you have already scrolled past reads as a placeholder.
+ * Indices into `GALLERY`, one per race, in the order the rows appear.
  */
-export const RACE_SHOT = [6, 3, 7, 2, 1, 4, 5];
+export const RACE_SHOT = [3, 4, 5, 1, 0, 2, 3];
 
 /** How many sections the lap counter in the nav is counting through. */
 export const TOTAL_LAPS = 6;
