@@ -22,12 +22,27 @@ export function RowPreview() {
         top: 0,
         width: "clamp(200px,22vw,340px)",
         aspectRatio: "4 / 3",
-        margin: "-60% 0 0 24px",
+        /*
+         * Centred on the cursor with a transform, not a negative margin.
+         *
+         * The design had `margin: -60% 0 0 24px`, and a percentage margin —
+         * even a vertical one — resolves against the containing block's
+         * WIDTH. On a fixed element that is the viewport, so -60% became
+         * -1143px at 1905px wide and the preview sat 580px above the top of
+         * the screen with `opacity: 1`, perfectly shown and impossible to
+         * see. It would have looked fine on a narrow window, which is the
+         * worst kind of broken.
+         *
+         * `translateY(-50%)` resolves against the element's own height, so
+         * it centres at any size. It has to be repeated in every transform
+         * this element is given — see `Calendar.tsx`.
+         */
+        margin: "0 0 0 24px",
         pointerEvents: "none",
         zIndex: 60,
         overflow: "hidden",
         opacity: 0,
-        transform: "scale(.8) rotate(-4deg)",
+        transform: "translateY(-50%) scale(.8) rotate(-4deg)",
         transition: `opacity .3s, transform .45s ${ease.out}`,
         boxShadow: "0 30px 80px rgba(0,0,0,.6)",
       }}

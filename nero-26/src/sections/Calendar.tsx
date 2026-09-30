@@ -23,13 +23,15 @@ export function Calendar() {
     img.src = shot.src;
     img.alt = "";
     pv.style.opacity = "1";
-    pv.style.transform = "scale(1) rotate(-3deg)";
+    // translateY(-50%) is the centring — see RowPreview. Dropping it here
+    // sends the preview off the top of the screen while still "visible".
+    pv.style.transform = "translateY(-50%) scale(1) rotate(-3deg)";
   };
   const hide = () => {
     const pv = document.querySelector<HTMLElement>("[data-preview]");
     if (!pv) return;
     pv.style.opacity = "0";
-    pv.style.transform = "scale(.8) rotate(-4deg)";
+    pv.style.transform = "translateY(-50%) scale(.8) rotate(-4deg)";
   };
 
   return (
