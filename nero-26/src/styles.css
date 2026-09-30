@@ -1,0 +1,281 @@
+/*
+ * What inline styles cannot express.
+ *
+ * The design is styled almost entirely inline and this file keeps that, so a
+ * component can be diffed against the design file by eye. What lives here is
+ * the reset, the keyframes, the hover and focus states, the two pinned
+ * sections' un-pinned form, and every media query.
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/*
+ * `clip`, on both — and it must not be `hidden`.
+ *
+ * Two separate traps, and the obvious fix for the first causes the second.
+ *
+ * On body alone, the document still scrolls sideways when something
+ * overflows: body clips its own content while the viewport keeps the wider
+ * scrollable area. That shipped once on a sibling project and took a
+ * `scrollLeft` measurement to find, because `scrollWidth` reads the same
+ * whether or not the page can actually be dragged.
+ *
+ * So it belongs on both — but `overflow-x: hidden` computes `overflow-y` to
+ * `auto`, which makes the root a scroll container, and `position: sticky`
+ * then sticks to THAT rather than to the viewport. Both pinned sections
+ * silently stopped pinning: the sticky child scrolled away with the page and
+ * the car section rendered as a blank screen with a canvas nobody could see.
+ *
+ * `clip` clips without establishing a scroll container, so sticky keeps
+ * working. Do not "simplify" this back to `hidden`.
+ */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: clip;
+  background: #0a0a0a;
+  color: #edeae4;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: "Archivo", system-ui, sans-serif;
+}
+
+::selection {
+  background: #e10600;
+  color: #fff;
+}
+
+a {
+  color: #edeae4;
+  text-decoration: none;
+}
+a:hover {
+  color: #e10600;
+}
+
+img {
+  max-width: 100%;
+}
+
+button {
+  font-family: inherit;
+}
+
+/* Red on near-black is the page's own contrast problem; the ring is offset
+   and thick enough to read against both the ground and a red row. */
+:focus-visible {
+  outline: 2.5px solid #e10600;
+  outline-offset: 3px;
+}
+[data-cursor="custom"] :focus-visible {
+  outline-color: #edeae4;
+}
+
+/* ── keyframes ─────────────────────────────────────────────────────────── */
+
+@keyframes neroMarquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes neroSweep {
+  0% { transform: translateX(-120%) skewX(-18deg); }
+  60%, 100% { transform: translateX(320%) skewX(-18deg); }
+}
+@keyframes neroPulse {
+  0% { transform: scale(1); opacity: .9; }
+  100% { transform: scale(3.2); opacity: 0; }
+}
+@keyframes neroDrop {
+  0% { transform: scaleY(0); transform-origin: top; }
+  45% { transform: scaleY(1); transform-origin: top; }
+  55% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+@keyframes neroBlink {
+  50% { opacity: .25; }
+}
+
+.marqueeTrack { animation: neroMarquee 28s linear infinite; }
+.sweep { animation: neroSweep 6s 2.6s cubic-bezier(.6, 0, .2, 1) infinite; }
+.pulseRing { animation: neroPulse 1.8s infinite; }
+.dropBar { animation: neroDrop 2s infinite; }
+.blink { animation: neroBlink 1.2s infinite; }
+
+/* ── hover states (these were `style-hover` in the design) ─────────────── */
+
+.ghostBtn:hover {
+  background: #e10600;
+  border-color: #e10600;
+  color: #fff;
+}
+
+.liveryBtn { opacity: .45; transition: opacity .3s; }
+.liveryBtn:hover, .liveryBtn[aria-pressed="true"] { opacity: 1; }
+
+/* The calendar row. `padding-left` is part of the hover on purpose — the row
+   steps toward the reader rather than only changing colour. */
+.raceRow { transition: background .35s, padding .35s, color .35s; }
+.raceRow:hover {
+  background: #e10600;
+  padding-left: 28px;
+  color: #fff;
+}
+.raceRow:hover .raceCircuit { opacity: .9; }
+
+.shotOverlay { opacity: 0; transition: opacity .4s; }
+.shot:hover .shotOverlay,
+.shot:focus-visible .shotOverlay { opacity: 1; }
+
+/* ── the harvest of the two pinned sections ────────────────────────────── */
+
+/*
+ * `data-pinned` is written by useScrollFx every frame: "on" when the viewport
+ * is wide enough and the viewer has not asked for reduced motion, "off"
+ * otherwise. Both states are laid out here rather than in the components, so
+ * the width that governs pinning is written once (and must stay in step with
+ * PIN_MIN_WIDTH in config.ts).
+ *
+ * Un-pinned is not a degraded pin. The section becomes an ordinary block: the
+ * car gets a fixed stage instead of a full viewport, the four callouts become
+ * a list under it instead of pins floating over a canvas too small to hold
+ * them, and nothing takes the scroll over.
+ */
+.pinInner {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.hotList { display: none; }
+
+[data-pinned="off"] .pinSection {
+  height: auto !important;
+}
+[data-pinned="off"] .pinInner {
+  position: static;
+  height: auto;
+  overflow: visible;
+  padding: clamp(90px, 12vh, 130px) clamp(20px, 3vw, 40px) 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+[data-pinned="off"] .pinAbs {
+  position: static !important;
+  transform: none !important;
+  inset: auto !important;
+  max-width: none;
+}
+[data-pinned="off"] .carStage {
+  position: relative;
+  height: min(52vh, 380px);
+}
+[data-pinned="off"] .bgText,
+[data-pinned="off"] .hotSpot {
+  display: none;
+}
+[data-pinned="off"] .hotList {
+  display: grid;
+  gap: 1px;
+  background: #1f1f1f;
+  border: 1px solid #1f1f1f;
+}
+[data-pinned="off"] .liveryRow {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+[data-pinned="off"] .helmetStage {
+  position: relative;
+  height: min(58vh, 420px);
+  clip-path: none !important;
+}
+[data-pinned="off"] .driverNum {
+  font-size: clamp(120px, 30vw, 240px);
+  text-align: right;
+}
+
+/* ── narrow ────────────────────────────────────────────────────────────── */
+
+@media (max-width: 860px) {
+  /* Four nav destinations plus a wordmark plus a lap counter will not fit.
+     The lap counter is the one that goes: it is decoration for a concept
+     site, and the links are the only way to reach a section. */
+  .navLaps { display: none; }
+  .navLinks { gap: 14px; }
+
+  /* The calendar's five columns collapse to two rows. The circuit name and
+     the arrow are the ones that can go — the city and the round are what
+     somebody scans for. */
+  .raceRow {
+    grid-template-columns: 52px minmax(0, 1fr) 84px !important;
+  }
+  .raceCircuit, .raceArrow { display: none; }
+  .raceRow:hover { padding-left: 12px; }
+
+  /* The paddock grid's 12 columns become 6, so a `span 7` tile is full width
+     and a `span 4` is two-thirds. The spans are inline on each tile, so this
+     is the one place the grid itself has to change. */
+  .shotGrid {
+    grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 560px) {
+  /* Every tile full width. Below this a two-up grid gives each photograph
+     about 130px, which is smaller than the caption sitting on it. */
+  .shotGrid > * {
+    grid-column: 1 / -1 !important;
+    grid-row: auto !important;
+  }
+  .shotGrid {
+    grid-auto-rows: clamp(150px, 42vw, 240px) !important;
+  }
+  .footerLinks {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+/* ── reduced motion ────────────────────────────────────────────────────── */
+
+/*
+ * The pinning is switched off in JS, not here — see useScrollFx — because the
+ * same switch also has to stop the camera choreography and the speed streaks,
+ * which are WebGL and cannot be reached by a media query.
+ *
+ * What this block does is stop the things that run on their own: the marquee,
+ * the light sweep, the pulsing hotspot ring, the scroll hint, the blinking
+ * live dot. The marquee becomes a strip you can scroll by hand rather than
+ * one that scrolls itself.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .marqueeTrack {
+    animation: none !important;
+    width: auto !important;
+  }
+  .marquee {
+    overflow-x: auto;
+  }
+  .sweep, .pulseRing, .dropBar, .blink {
+    animation: none !important;
+    opacity: 1;
+  }
+  .sweep { display: none; }
+}
