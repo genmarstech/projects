@@ -165,7 +165,7 @@ export function Footer({ store }: { store: StoreApi }) {
         }}
       >
         <span>Concept website · not affiliated with any team</span>
-        <a href="#top" data-hover style={{ color: c.ink }}>
+        <a href="#top" data-hover className="backToGrid" style={{ color: c.ink }}>
           Back to grid ↑
         </a>
       </div>

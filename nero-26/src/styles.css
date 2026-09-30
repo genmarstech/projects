@@ -174,9 +174,15 @@ button {
   inset: auto !important;
   max-width: none;
 }
+/* `!important` throughout this block is not shouting: every property here is
+   overriding an inline style, which is the one thing a stylesheet otherwise
+   loses to. The stage is inline `position: absolute; inset: 0`, and without
+   the override it stays absolute and lies on top of the flowed content
+   instead of taking a place in it. */
 [data-pinned="off"] .carStage {
-  position: relative;
-  height: min(52vh, 380px);
+  position: relative !important;
+  inset: auto !important;
+  height: min(52vh, 380px) !important;
 }
 [data-pinned="off"] .bgText,
 [data-pinned="off"] .hotSpot {
@@ -195,8 +201,9 @@ button {
   gap: 16px;
 }
 [data-pinned="off"] .helmetStage {
-  position: relative;
-  height: min(58vh, 420px);
+  position: relative !important;
+  inset: auto !important;
+  height: min(58vh, 420px) !important;
   clip-path: none !important;
 }
 [data-pinned="off"] .driverNum {
@@ -210,8 +217,20 @@ button {
   /* Four nav destinations plus a wordmark plus a lap counter will not fit.
      The lap counter is the one that goes: it is decoration for a concept
      site, and the links are the only way to reach a section. */
-  .navLaps { display: none; }
-  .navLinks { gap: 14px; }
+  /* Both override inline styles on the nav, so both need the weight. */
+  .navLaps { display: none !important; }
+  .navLinks { gap: 14px !important; }
+
+  /*
+   * Thumb targets. These are 11–12px text links with no box around them —
+   * 28px tall in the nav and 16px in the footer — which is a pointer's
+   * measurement, not a finger's. The padding is the target; it changes no
+   * row height that was not already set by something taller beside it.
+   */
+  .navLinks a { padding-block: 6px; }
+  .footerLinks a { padding-block: 12px; }
+  nav a[href="#top"] { padding-block: 9px; }
+  .backToGrid { display: inline-block; padding-block: 13px; }
 
   /* The calendar's five columns collapse to two rows. The circuit name and
      the arrow are the ones that can go — the city and the round are what
