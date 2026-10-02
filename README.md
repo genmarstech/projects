@@ -9,6 +9,7 @@ design implementations. One folder per project, each standing on its own.
 | [`mercato-store`](./mercato-store) | The same shop's storefront — aisles, basket, checkout, order tracking | Vite · React · TypeScript |
 | [`nero-26`](./nero-26) | Formula 1 concept site — a car modelled in code, scroll-driven teardown, 3D tyre | Vite · React · TypeScript · three |
 | [`mvule-co`](./mvule-co) | Nairobi furniture shopfront — KES pricing, WhatsApp ordering, M-Pesa deposits | Vite · React · TypeScript |
+| [`stk-lifecycle`](./stk-lifecycle) | R&D — interactive teardown of the M-Pesa STK push lifecycle, and why the callback cannot be trusted | Vite · React · TypeScript |
 
 ## How this repo is arranged
 
