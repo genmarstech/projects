@@ -1,0 +1,427 @@
+/*
+ * Genmars' palette, both themes, tokens first.
+ *
+ * Same discipline as the company's three frontends: brand constants are
+ * fixed, semantic tokens flip, and nothing below the token block names a
+ * colour literal — so a background taken from one set and text from the
+ * other cannot produce a light band with light text in it.
+ *
+ * Two state colours are declared and they are not the accent. `--pending`
+ * means "this phone has it and the server does not", and `--settled` means
+ * "both have it". A form that borrowed the brand colour for one of those
+ * would be saying something about Genmars where it meant to say something
+ * about the record.
+ */
+
+:root {
+  color-scheme: light dark;
+
+  --deep-well: #2e2b34;
+  --canvas: #e9e3df;
+  --ignition: #db7b51;
+
+  --bg: #f4efec;
+  --bg-raised: #faf7f5;
+  --bg-sunken: #e9e3df;
+  --ink: #2e2b34;
+  --ink-muted: #5f5867;
+  --ink-faint: #837c8a;
+  --accent: #db7b51;
+  --accent-text: #8c4f33;
+  --rule: rgba(46, 43, 52, 0.14);
+  --rule-strong: rgba(46, 43, 52, 0.3);
+
+  --pending: #9a6f28;
+  --pending-wash: rgba(154, 111, 40, 0.12);
+  --settled: #2f6b4a;
+  --settled-wash: rgba(47, 107, 74, 0.1);
+  --lost: #9c3f36;
+  --lost-wash: rgba(156, 63, 54, 0.09);
+
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-brand: "Jost", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
+
+  --radius: 7px;
+  --gutter: clamp(16px, 3.6vw, 36px);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #211e27;
+    --bg-raised: #292531;
+    --bg-sunken: #1a171f;
+    --ink: #efe9e6;
+    --ink-muted: #b4acb8;
+    --ink-faint: #8b8392;
+    --accent: #e4906a;
+    --accent-text: #e9a481;
+    --rule: rgba(239, 233, 230, 0.14);
+    --rule-strong: rgba(239, 233, 230, 0.3);
+
+    --pending: #d9ac5a;
+    --pending-wash: rgba(217, 172, 90, 0.14);
+    --settled: #6cb28c;
+    --settled-wash: rgba(108, 178, 140, 0.12);
+    --lost: #e08a7e;
+    --lost-wash: rgba(224, 138, 126, 0.12);
+  }
+}
+
+@font-face { font-family: "Fraunces"; src: url("/fonts/fraunces-variable.woff2") format("woff2-variations"); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "IBM Plex Sans"; src: url("/fonts/ibm-plex-sans-variable.woff2") format("woff2-variations"); font-weight: 100 700; font-display: swap; }
+@font-face { font-family: "Jost"; src: url("/fonts/jost-variable.woff2") format("woff2-variations"); font-weight: 100 900; font-display: swap; }
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { margin: 0; font-weight: 600; text-wrap: balance; }
+p { margin: 0 0 10px; }
+input, select, textarea, button { font: inherit; color: inherit; }
+textarea { resize: vertical; }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+
+.mono { font-family: var(--font-mono); font-size: 0.88em; letter-spacing: 0.01em; }
+
+.shell {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: clamp(18px, 3.5vw, 40px) var(--gutter) 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* ── Masthead ───────────────────────────────────────────────────────── */
+
+.masthead { display: flex; flex-direction: column; gap: 14px; }
+.masthead__brand { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+
+.wordmark {
+  font-family: var(--font-brand);
+  font-size: clamp(28px, 5.5vw, 42px);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.masthead__rule { flex: 1 1 40px; height: 1px; background: var(--rule); align-self: center; }
+
+.masthead__sub {
+  font-family: var(--font-display);
+  font-size: clamp(14px, 2.2vw, 18px);
+  font-style: italic;
+  color: var(--ink-muted);
+}
+
+.notice {
+  margin: 0;
+  padding: 11px 15px;
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--bg-raised);
+  color: var(--ink-muted);
+  max-width: 80ch;
+  font-size: 13.5px;
+}
+
+.tabs { display: flex; gap: 10px; flex-wrap: wrap; }
+
+.tab {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  text-align: left;
+  padding: 9px 16px;
+  background: var(--bg-raised);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.tab span { font-weight: 400; font-size: 12px; color: var(--ink-faint); }
+.tab.is-on { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.tab.is-on span { color: var(--bg); opacity: 0.72; }
+
+/* ── Buttons ────────────────────────────────────────────────────────── */
+
+.btn {
+  border: 1px solid var(--rule-strong);
+  background: var(--bg);
+  border-radius: var(--radius);
+  padding: 7px 14px;
+  cursor: pointer;
+  font-size: 13.5px;
+  font-weight: 500;
+}
+
+.btn:hover { border-color: var(--ink-faint); }
+.btn--primary { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.btn--chip { padding: 5px 11px; font-size: 12.5px; }
+.btn--chip.is-on { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.btn--quiet { border-color: var(--rule); color: var(--ink-faint); font-size: 12.5px; width: 100%; }
+
+/* ── Field view ─────────────────────────────────────────────────────── */
+
+.field {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr) 300px;
+  gap: 18px;
+  align-items: start;
+}
+
+.farms ul, .devices, .log, .diary { list-style: none; margin: 0; padding: 0; }
+
+.farms__btn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  text-align: left;
+  gap: 1px;
+  padding: 9px 12px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.farms__btn:hover { background: var(--bg-raised); }
+.farms__btn.is-on { background: var(--bg-raised); border-color: var(--rule-strong); }
+.farms__name { font-weight: 600; font-size: 14px; }
+.farms__meta { font-size: 12px; color: var(--ink-faint); }
+
+.dot {
+  position: absolute;
+  top: 12px; right: 11px;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--pending);
+}
+
+.record, .sync, .card {
+  background: var(--bg-raised);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+}
+
+.record__head { margin-bottom: 14px; }
+.record__head h2 { font-family: var(--font-display); font-size: 24px; }
+.record__sub { margin: 2px 0 0; color: var(--ink-faint); font-size: 13px; }
+
+.rows { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 13px; }
+.row { display: flex; flex-direction: column; gap: 5px; }
+.row--wide { grid-column: 1 / -1; }
+
+.row__label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  font-weight: 600;
+}
+
+.row input, .row select, .row textarea {
+  width: 100%;
+  padding: 8px 10px;
+  background: var(--bg);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius);
+}
+
+.chip {
+  padding: 1px 7px;
+  border-radius: 999px;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  font-weight: 500;
+}
+
+.chip--pending { background: var(--pending-wash); color: var(--pending); }
+.chip--synced { background: var(--settled-wash); color: var(--settled); }
+.chip--counter { background: var(--bg-sunken); color: var(--ink-faint); }
+
+.tally { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.tally .btn { min-width: 40px; font-size: 17px; line-height: 1; padding: 6px 12px; }
+.tally__n { font-family: var(--font-mono); font-size: 22px; min-width: 2.5ch; text-align: center; }
+.tally__note { color: var(--ink-faint); font-size: 12px; }
+
+/* ── Sync column ────────────────────────────────────────────────────── */
+
+.sync h2 { font-family: var(--font-display); font-size: 18px; margin-bottom: 9px; }
+.sync h3 { font-size: 11px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink-faint); margin: 16px 0 7px; }
+.modes { display: flex; gap: 6px; flex-wrap: wrap; }
+.sync__hint { color: var(--ink-faint); font-size: 12px; margin: 8px 0 0; }
+.sync__buttons { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+.sync__buttons .btn { flex: 1 1 auto; }
+
+.meter { margin: 14px 0 0; display: flex; flex-direction: column; gap: 5px; }
+.meter > div { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+.meter dt { font-size: 12px; color: var(--ink-faint); }
+.meter dd { margin: 0; font-size: 13px; font-weight: 500; font-variant-numeric: tabular-nums; }
+
+.verdict {
+  margin: 12px 0 0;
+  padding: 9px 11px;
+  border-radius: var(--radius);
+  background: var(--pending-wash);
+  color: var(--pending);
+  font-size: 12.5px;
+}
+
+.verdict.is-good { background: var(--settled-wash); color: var(--settled); }
+
+.log { display: flex; flex-direction: column; gap: 5px; font-size: 12px; }
+.log li { display: grid; grid-template-columns: 62px 1fr; gap: 8px; align-items: baseline; }
+.log time { color: var(--ink-faint); font-family: var(--font-mono); font-size: 10.5px; }
+.log__fail span { color: var(--lost); }
+.log__merge span { color: var(--settled); }
+.log__note span { color: var(--ink-faint); font-style: italic; }
+
+/* ── Week view ──────────────────────────────────────────────────────── */
+
+.week { display: flex; flex-direction: column; gap: 18px; }
+
+.week__intro { max-width: 76ch; }
+.week__intro h2 { font-family: var(--font-display); font-size: clamp(21px, 3.4vw, 27px); margin-bottom: 8px; }
+.week__intro p { color: var(--ink-muted); }
+.week__intro strong { color: var(--ink); }
+
+.scrub { display: flex; align-items: center; gap: 12px; margin-top: 14px; flex-wrap: wrap; }
+.scrub__label { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); }
+.scrub input { flex: 1 1 200px; accent-color: var(--accent); min-width: 150px; }
+.scrub__out { font-size: 13px; font-weight: 600; white-space: nowrap; }
+
+.week__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 18px; }
+
+.card h3 {
+  font-family: var(--font-display);
+  font-size: 19px;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.count {
+  background: var(--lost-wash);
+  color: var(--lost);
+  border-radius: 999px;
+  padding: 0 9px;
+  font-size: 13px;
+  font-family: var(--font-mono);
+}
+
+.card__lede { color: var(--ink-muted); font-size: 13.5px; max-width: 66ch; }
+.card__foot { color: var(--ink-faint); font-size: 12.5px; margin: 10px 0 0; }
+
+.devices { display: flex; flex-direction: column; gap: 7px; }
+.devices li { display: flex; justify-content: space-between; gap: 12px; align-items: center; padding: 8px 10px; background: var(--bg-sunken); border-radius: var(--radius); }
+.devices__who { display: flex; flex-direction: column; }
+.devices__who span { font-size: 12px; color: var(--ink-faint); }
+.devices__n { font-size: 12.5px; color: var(--ink-muted); white-space: nowrap; }
+
+table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+
+th {
+  text-align: left;
+  font-size: 10.5px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  font-weight: 600;
+  padding: 0 10px 7px 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+td { padding: 9px 10px 9px 0; border-bottom: 1px solid var(--rule); vertical-align: top; font-size: 13.5px; }
+tbody tr:last-child td { border-bottom: none; }
+.num { text-align: right; font-variant-numeric: tabular-nums; }
+th.num { text-align: right; }
+
+.kept { color: var(--settled); font-weight: 500; }
+.gone { color: var(--lost); text-decoration: line-through; text-decoration-color: var(--rule-strong); }
+.who { color: var(--ink-muted); font-size: 12.5px; }
+.who .why { display: block; color: var(--ink-faint); font-size: 11.5px; font-style: italic; }
+
+/*
+ * A dotted rule under the cell, not a red fill.
+ *
+ * Twelve filled cells in one table reads as an error state, and nothing on
+ * this page is in error — the left column is correct and the comparison is
+ * the point. The mark says "this one differs", which is all it means.
+ */
+.differs { border-bottom: 2px solid var(--lost); }
+
+.notes { max-width: 40ch; color: var(--ink-muted); }
+.notes .by { display: block; color: var(--ink-faint); font-size: 11.5px; }
+
+.diary { display: flex; flex-direction: column; gap: 4px; margin-top: 10px; }
+.diary li {
+  display: grid;
+  grid-template-columns: 90px 86px minmax(0, 1fr) minmax(0, 1fr);
+  gap: 12px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 13px;
+  align-items: baseline;
+}
+.diary li:last-child { border-bottom: none; }
+.diary__day { color: var(--ink-faint); font-size: 12px; }
+.diary__who { font-weight: 600; }
+.diary__what em { font-style: normal; color: var(--accent-text); }
+.diary__why { color: var(--ink-faint); font-size: 12px; font-style: italic; }
+
+.empty { color: var(--ink-faint); font-size: 13.5px; padding: 12px 0; }
+
+.foot {
+  border-top: 1px solid var(--rule);
+  padding-top: 16px;
+  color: var(--ink-muted);
+  font-size: 13px;
+  max-width: 78ch;
+}
+
+/* ── Narrow ─────────────────────────────────────────────────────────── */
+
+@media (max-width: 1080px) {
+  .field { grid-template-columns: 200px minmax(0, 1fr); }
+  .sync { grid-column: 1 / -1; }
+}
+
+@media (max-width: 720px) {
+  /*
+   * The record first, the list second. On a phone the officer is already
+   * inside one record; the list is navigation, and navigation does not go
+   * above the thing being worked on.
+   */
+  .field { grid-template-columns: 1fr; }
+  .record { order: 1; }
+  .farms { order: 2; }
+  .sync { order: 3; }
+  .diary li { grid-template-columns: 1fr; gap: 1px; }
+  .diary__day { font-weight: 600; color: var(--ink-muted); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
