@@ -177,18 +177,48 @@ export const draw = (
       ctx.lineWidth = 1;
       ctx.stroke();
     }
+  }
 
-    // Only termini and the selected stop are labelled. Labelling all
-    // twenty-five produces a drawing where the words overlap and none of
-    // them can be read, which is worse than a map with no words on it.
-    if (stop.kind === "terminus" || selected) {
-      ctx.font = `${selected ? 600 : 500} 11px ui-sans-serif, system-ui, sans-serif`;
-      ctx.fillStyle = selected ? palette.ink : palette.inkMuted;
-      ctx.textBaseline = "middle";
-      const right = x < width * 0.62;
-      ctx.textAlign = right ? "left" : "right";
-      ctx.fillText(stop.name, x + (right ? 10 : -10), y);
-    }
+  /*
+   * ── LABELS ARE PLACED, NOT JUST DRAWN ────────────────────────────────
+   *
+   * Six of the twenty-five stops are termini and three of those are within
+   * a kilometre of each other in the centre of town. Drawn naively their
+   * words sit on top of one another and none of the three can be read,
+   * which is worse than a map with no words on it at all.
+   *
+   * So each label is measured before it is drawn and dropped if it would
+   * overlap one already placed. The selected stop goes first and therefore
+   * always wins — it is the one the reader asked about.
+   */
+  const placed: { x0: number; y0: number; x1: number; y1: number }[] = [];
+  const order = [...STOPS].sort((a, b) => {
+    if (a.id === scene.selectedStopId) return -1;
+    if (b.id === scene.selectedStopId) return 1;
+    return 0;
+  });
+
+  for (const stop of order) {
+    const selected = stop.id === scene.selectedStopId;
+    if (stop.kind !== "terminus" && !selected) continue;
+
+    const { x, y } = p.project(stop.lat, stop.lon);
+    ctx.font = `${selected ? 600 : 500} 11px ui-sans-serif, system-ui, sans-serif`;
+    const w = ctx.measureText(stop.name).width;
+    const right = x < width * 0.62;
+    const x0 = right ? x + 10 : x - 10 - w;
+    const box = { x0: x0 - 2, y0: y - 8, x1: x0 + w + 2, y1: y + 8 };
+
+    const clash = placed.some(
+      (q) => box.x0 < q.x1 && box.x1 > q.x0 && box.y0 < q.y1 && box.y1 > q.y0,
+    );
+    if (clash) continue;
+    placed.push(box);
+
+    ctx.fillStyle = selected ? palette.ink : palette.inkMuted;
+    ctx.textBaseline = "middle";
+    ctx.textAlign = right ? "left" : "right";
+    ctx.fillText(stop.name, right ? x0 : x0 + w, y);
   }
 
   // ── Vehicles ───────────────────────────────────────────────────────────

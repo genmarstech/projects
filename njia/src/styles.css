@@ -331,7 +331,10 @@ button, select, input { font: inherit; color: inherit; }
 
 .arrivals tbody tr:last-child td { border-bottom: none; }
 
-.arrivals .num { text-align: right; padding-right: 0; white-space: nowrap; }
+/* Right-aligned, but not flush: the next column starts immediately after
+   it, and at zero padding "9 min ±2" and "Dagoretti Corner" run together
+   into one unreadable string. */
+.arrivals .num { text-align: right; padding-right: 14px; white-space: nowrap; }
 .arrivals th.num { text-align: right; }
 
 .towards, .from { color: var(--ink-muted); font-size: 13.5px; }

@@ -209,7 +209,18 @@ tbody tr:last-child td { border-bottom: none; }
 .kind--dict { background: var(--dict-wash); color: var(--dict); }
 .kind--number { background: var(--numeric-wash); color: var(--numeric); }
 
+/*
+ * The schema scrolls sideways rather than wrapping.
+ *
+ * At phone width the sample-values column wraps to four lines and every
+ * row becomes a paragraph, so ten columns need a page of scrolling to
+ * read a list. A minimum width and a truncated sample keep it a table:
+ * one row per column, and the gesture to see the rest is a swipe.
+ */
 .schema { background: var(--bg-raised); border: 1px solid var(--rule); border-radius: var(--radius); padding: 12px 15px; overflow-x: auto; }
+.schema table { min-width: 620px; }
+.schema td { white-space: nowrap; }
+.schema td:last-child { max-width: 30ch; overflow: hidden; text-overflow: ellipsis; }
 
 /* ── Editor ─────────────────────────────────────────────────────────── */
 

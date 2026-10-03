@@ -292,6 +292,9 @@ textarea { resize: vertical; }
 
 .log { display: flex; flex-direction: column; gap: 5px; font-size: 12px; }
 .log li { display: grid; grid-template-columns: 62px 1fr; gap: 8px; align-items: baseline; }
+/* A line with no timestamp — the empty state — takes the whole width
+   rather than being wrapped into the 62px time column. */
+.log li > span:only-child { grid-column: 1 / -1; }
 .log time { color: var(--ink-faint); font-family: var(--font-mono); font-size: 10.5px; }
 .log__fail span { color: var(--lost); }
 .log__merge span { color: var(--settled); }
