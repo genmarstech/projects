@@ -1,0 +1,274 @@
+/*
+ * ╔══════════════════════════════════════════════════════════════════════╗
+ * ║  KIOO — THE TOKEN LAYER                                              ║
+ * ║  This file is the design system. Everything else is an example.      ║
+ * ╚══════════════════════════════════════════════════════════════════════╝
+ *
+ * ── THE RULE THAT THIS WHOLE FILE EXISTS TO ENFORCE ───────────────────────
+ *
+ * There are two kinds of colour here and they must never be confused.
+ *
+ *   BRAND CONSTANTS are fixed. Deep Well is #2e2b34 in every theme, on
+ *   every surface, for ever. They are the company's colours and they do
+ *   not respond to anything.
+ *
+ *   SEMANTIC TOKENS are roles. `--bg` means "the page's ground" and `--ink`
+ *   means "text on that ground", and both change value when the theme does.
+ *
+ * ⚠ USING A BRAND CONSTANT AS A BACKGROUND WHILE THE TEXT USES A SEMANTIC
+ *   TOKEN PRODUCES A LIGHT BAND WITH LIGHT TEXT IN ONE OF THE TWO THEMES.
+ *
+ *   That has shipped. It is the reason `check-theme-tokens.mjs` runs in
+ *   every Genmars frontend, and the reason the audit on this page computes
+ *   contrast from the live computed styles rather than from a list
+ *   somebody maintains by hand.
+ *
+ * The constants appear exactly once below, in the derivation of the
+ * semantic tokens. Nothing outside this file may name one.
+ *
+ * ── WHY THE DARK VALUES ARE DECLARED BEFORE THEY ARE USED ────────────────
+ *
+ * A theme has three states, not two. An explicit choice stamps
+ * `data-theme` on an element; the default — which is most people — stamps
+ * nothing, and only `prefers-color-scheme` separates light from dark.
+ *
+ * So each dark value has to be assigned in two places: inside the media
+ * query, and under `[data-theme="dark"]`. CSS has no way to alias a block
+ * of declarations, so the mapping is written twice — but the *colours* are
+ * declared once, as `--d-*`, and both places reference them. A colour that
+ * exists in one of the two and not the other is the classic unreadable
+ * component, and this is the arrangement that makes it impossible.
+ *
+ * It also means a scope can be forced to either theme by stamping the
+ * attribute on it, which is what lets the audit page render both palettes
+ * side by side in one document and measure them.
+ */
+
+:root {
+  color-scheme: light dark;
+
+  /* ── Brand constants. Fixed. Never a background for semantic text. ──── */
+  --deep-well: #2e2b34;
+  --canvas: #e9e3df;
+  --ignition: #db7b51;
+  --paper: #f4efec;
+
+  /* ── The dark set, declared once and referenced twice below. ────────── */
+  --d-bg: #211e27;
+  --d-bg-raised: #292531;
+  --d-bg-sunken: #1a171f;
+  --d-ink: #efe9e6;
+  --d-ink-muted: #b4acb8;
+  --d-ink-faint: #978f9d;
+  --d-accent: #e4906a;
+  --d-accent-ink: #1a171f;
+  --d-accent-text: #e9a481;
+  --d-rule: rgba(239, 233, 230, 0.16);
+  --d-rule-strong: rgba(239, 233, 230, 0.42);
+  --d-shadow: rgba(0, 0, 0, 0.45);
+  --d-good: #6cb28c;
+  --d-good-wash: rgba(108, 178, 140, 0.16);
+  --d-warn: #d9ac5a;
+  --d-warn-wash: rgba(217, 172, 90, 0.16);
+  --d-bad: #e8948a;
+  --d-bad-wash: rgba(232, 148, 138, 0.16);
+  --d-info: #8fb0cf;
+  --d-info-wash: rgba(143, 176, 207, 0.16);
+  --d-focus: #e4906a;
+
+  /* ── Semantic tokens: light. ────────────────────────────────────────── */
+  --bg: var(--paper);
+  --bg-raised: #faf7f5;
+  --bg-sunken: var(--canvas);
+  --ink: var(--deep-well);
+  --ink-muted: #5f5867;
+  --ink-faint: #6f6975;
+
+  --accent: var(--ignition);
+  /*
+   * Text placed ON the accent.
+   *
+   * ⚠ IT IS DARK, NOT WHITE, AND THAT IS A MEASUREMENT RATHER THAN A TASTE.
+   *
+   *   White on Ignition is 3.02:1 and fails AA for body text. Deep Well on
+   *   Ignition is 4.61:1 and passes. The alternative was darkening the
+   *   button until white worked, which means the primary button is no
+   *   longer the brand colour — a worse trade for a design system whose
+   *   job is to carry the brand accurately.
+   */
+  --accent-ink: var(--deep-well);
+  /* The accent as TEXT, on the page ground. Darker than the accent itself,
+     because #db7b51 on #f4efec is 2.3:1 and unreadable. */
+  --accent-text: #8c4f33;
+
+  --rule: rgba(46, 43, 52, 0.14);
+  /*
+   * ⚠ THE CONTROL EDGE IS A CONTRAST REQUIREMENT, NOT A TASTE.
+   *
+   *   WCAG 2.2 §1.4.11 asks 3:1 of the visual boundary that identifies a
+   *   control. At 0.3 alpha this was 1.79:1 against the page — a perfectly
+   *   pleasant hairline, and below the line for the border of every input
+   *   in the system.
+   *
+   *   It was not caught by reading the file. It was caught by the audit on
+   *   the Contrast page, which measures this pair because an input border
+   *   is a pair, and the number came back red. That is the entire argument
+   *   for measuring rather than documenting, and it happened here.
+   */
+  --rule-strong: rgba(46, 43, 52, 0.56);
+  --shadow: rgba(46, 43, 52, 0.1);
+
+  /*
+   * ── STATE COLOURS ARE NOT THE ACCENT, AND THE ACCENT IS NOT A STATE ───
+   *
+   * The accent says "Genmars". These four say "this went well", "look at
+   * this", "this failed", "this is information". A success chip wearing
+   * the brand colour means a brand-coloured thing is a successful thing,
+   * which is a claim the interface is not entitled to make — and it leaves
+   * nothing to say success with when the brand colour is already on the
+   * button beside it.
+   */
+  --good: #2f6b4a;
+  --good-wash: rgba(47, 107, 74, 0.11);
+  --warn: #7d5315;
+  --warn-wash: rgba(125, 83, 21, 0.12);
+  --bad: #9c3f36;
+  --bad-wash: rgba(156, 63, 54, 0.1);
+  --info: #386071;
+  --info-wash: rgba(56, 96, 113, 0.11);
+
+  /*
+   * The focus ring, which is not the accent in both themes.
+   *
+   * ⚠ A FOCUS RING MUST REACH 3:1 AGAINST WHAT IT SITS ON. Ignition on the
+   *   light ground is 2.64:1 — visible, and below the line. So the light
+   *   theme rings in `--accent-text`, which is 5.61:1, and the dark theme
+   *   rings in the accent itself, which is already 6.64:1. One token, two
+   *   values, and no component has to know.
+   */
+  --focus: var(--accent-text);
+
+  /* ── Type ───────────────────────────────────────────────────────────── */
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-brand: "Jost", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
+
+  /*
+   * A scale with a ratio, not a list of sizes somebody liked.
+   *
+   * 1.25 (a major third) from a 15px body. Headings come off the scale and
+   * body copy sits at the base, so a new size is a step rather than a
+   * negotiation. The two smallest are not on the ratio: 11px and 12px are
+   * where legibility rather than proportion decides.
+   */
+  --text-xs: 11px;
+  --text-sm: 12.5px;
+  --text-base: 15px;
+  --text-md: 18.75px;
+  --text-lg: 23.5px;
+  --text-xl: 29px;
+  --text-2xl: 36.5px;
+
+  /* ── Space. A 4px grid; nothing between the steps. ──────────────────── */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  --radius-sm: 4px;
+  --radius: 7px;
+  --radius-lg: 12px;
+  --radius-pill: 999px;
+
+  /* Reading measure. Long-form text is capped at this, always. */
+  --measure: 68ch;
+
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --fast: 120ms;
+}
+
+/* The default state: no attribute stamped, dark operating system. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: var(--d-bg);
+    --bg-raised: var(--d-bg-raised);
+    --bg-sunken: var(--d-bg-sunken);
+    --ink: var(--d-ink);
+    --ink-muted: var(--d-ink-muted);
+    --ink-faint: var(--d-ink-faint);
+    --accent: var(--d-accent);
+    --accent-ink: var(--d-accent-ink);
+    --accent-text: var(--d-accent-text);
+    --rule: var(--d-rule);
+    --rule-strong: var(--d-rule-strong);
+    --shadow: var(--d-shadow);
+    --good: var(--d-good);
+    --good-wash: var(--d-good-wash);
+    --warn: var(--d-warn);
+    --warn-wash: var(--d-warn-wash);
+    --bad: var(--d-bad);
+    --bad-wash: var(--d-bad-wash);
+    --info: var(--d-info);
+    --info-wash: var(--d-info-wash);
+    --focus: var(--d-focus);
+  }
+}
+
+/* An explicit choice, anywhere in the document — including on a scope the
+   audit uses to measure a theme the reader is not currently in. */
+[data-theme="dark"] {
+  --bg: var(--d-bg);
+  --bg-raised: var(--d-bg-raised);
+  --bg-sunken: var(--d-bg-sunken);
+  --ink: var(--d-ink);
+  --ink-muted: var(--d-ink-muted);
+  --ink-faint: var(--d-ink-faint);
+  --accent: var(--d-accent);
+  --accent-ink: var(--d-accent-ink);
+  --accent-text: var(--d-accent-text);
+  --rule: var(--d-rule);
+  --rule-strong: var(--d-rule-strong);
+  --shadow: var(--d-shadow);
+  --good: var(--d-good);
+  --good-wash: var(--d-good-wash);
+  --warn: var(--d-warn);
+  --warn-wash: var(--d-warn-wash);
+  --bad: var(--d-bad);
+  --bad-wash: var(--d-bad-wash);
+  --info: var(--d-info);
+  --info-wash: var(--d-info-wash);
+  --focus: var(--d-focus);
+}
+
+[data-theme="light"] {
+  --bg: var(--paper);
+  --bg-raised: #faf7f5;
+  --bg-sunken: var(--canvas);
+  --ink: var(--deep-well);
+  --ink-muted: #5f5867;
+  --ink-faint: #6f6975;
+  --accent: var(--ignition);
+  --accent-ink: var(--deep-well);
+  --accent-text: #8c4f33;
+  --rule: rgba(46, 43, 52, 0.14);
+  --rule-strong: rgba(46, 43, 52, 0.56);
+  --shadow: rgba(46, 43, 52, 0.1);
+  --good: #2f6b4a;
+  --good-wash: rgba(47, 107, 74, 0.11);
+  --warn: #7d5315;
+  --warn-wash: rgba(125, 83, 21, 0.12);
+  --bad: #9c3f36;
+  --bad-wash: rgba(156, 63, 54, 0.1);
+  --info: #386071;
+  --info-wash: rgba(56, 96, 113, 0.11);
+  --focus: var(--accent-text);
+}
+
+@font-face { font-family: "Fraunces"; src: url("/fonts/fraunces-variable.woff2") format("woff2-variations"); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "IBM Plex Sans"; src: url("/fonts/ibm-plex-sans-variable.woff2") format("woff2-variations"); font-weight: 100 700; font-display: swap; }
+@font-face { font-family: "Jost"; src: url("/fonts/jost-variable.woff2") format("woff2-variations"); font-weight: 100 900; font-display: swap; }
