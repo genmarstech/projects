@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mizani — a column store and a query engine in the tab</title>
+    <meta
+      name="description"
+      content="A columnar store with dictionary-encoded text, a hand-written SQL subset, and a plan that says which columns it read and how many bytes. Runs in a Web Worker; nothing is uploaded. A Genmars Tech demonstration."
+    />
+    <meta name="theme-color" content="#f4efec" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#211e27" media="(prefers-color-scheme: dark)" />
+    <meta property="og:title" content="Mizani" />
+    <meta
+      property="og:description"
+      content="Sixty thousand rows, a dictionary-encoded column store, and a query plan that tells you what it actually touched."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/fraunces-variable.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/ibm-plex-sans-variable.woff2" crossorigin />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
