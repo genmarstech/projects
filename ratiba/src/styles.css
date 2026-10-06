@@ -1,77 +1,113 @@
 /*
- * Genmars' palette, both themes, tokens first — the same discipline as the
- * company's three frontends. Nothing below the token block names a colour
- * literal, so a surface and the text on it cannot come from different sets.
+ * ── AN INSTITUTIONAL DOCUMENT, NOT THE BRAND ─────────────────────────────
  *
- * Three state colours, declared apart from the accent: `--ok` for a rota
- * that exists, `--warn` for a search that gave up without proving anything,
- * `--bad` for a proof that none exists. Those are three different facts and
- * the page is careful not to collapse the middle one into the last.
+ * This does not wear the Genmars palette. A rota is a legal document before
+ * it is anything else — the record of who was asked to work what, with a
+ * statutory rest period on every row. So it is dressed like one: a cool
+ * paper, an ink-blue accent, a serif for the headings and a workmanlike
+ * grotesque for everything that has to be read in a hurry.
+ *
+ * ── FOUR STATE COLOURS, AND NONE OF THEM IS THE ACCENT ───────────────────
+ *
+ * Solved, abandoned and disproved are three different outcomes and the page
+ * refuses to collapse the middle into the last — so `--ok`, `--warn` and
+ * `--bad` are three colours rather than two, and `--busy` is a fourth
+ * because a search still running is not a result.
+ *
+ * ⚠ THE ACCENT IS INK BLUE AND `--busy` IS A LIGHTER BLUE, DELIBERATELY
+ *   CLOSE. They are never adjacent: the accent is a tab underline and a
+ *   selected card, `--busy` is a pill in the status bar. Giving them
+ *   unrelated hues would have put a fifth colour on a page that is mostly
+ *   a grid of names.
+ *
+ * ── MEASURED, NOT CHOSEN ─────────────────────────────────────────────────
+ *
+ * `--ink-muted` and `--ink-faint` are the ink mixed toward the ground until
+ * they only just clear 6:1 and 4.6:1 on the tightest surface they sit on.
+ * `--rule-strong` is the alpha at which a control's border reaches 3:1,
+ * which WCAG 2.2 §1.4.11 asks of it and a comfortable hairline does not.
+ *
+ * Nothing below the token block names a colour literal.
  */
 
 :root {
   color-scheme: light dark;
 
-  --deep-well: #2e2b34;
-  --canvas: #e9e3df;
-  --ignition: #db7b51;
+  /* ── Paper ──────────────────────────────────────────────────────────── */
+  --bg: #eef1f2;
+  --bg-raised: #f8fafa;
+  --bg-sunken: #e0e5e7;
+  --ink: #15202a;
+  --ink-muted: #4a535b;
+  --ink-faint: #5c656c;
+  --accent: #1f4e79;
+  --accent-ink: #ffffff;
+  --accent-text: #1f4e79;
+  --rule: rgba(21, 32, 42, 0.16);
+  --rule-strong: rgba(21, 32, 42, 0.5);
 
-  --bg: #f4efec;
-  --bg-raised: #faf7f5;
-  --bg-sunken: #e9e3df;
-  --ink: #2e2b34;
-  --ink-muted: #5f5867;
-  --ink-faint: #837c8a;
-  --accent: #db7b51;
-  --accent-text: #8c4f33;
-  --rule: rgba(46, 43, 52, 0.14);
-  --rule-strong: rgba(46, 43, 52, 0.3);
+  --ok: #1f6b4f;
+  --ok-wash: rgba(31, 107, 79, 0.12);
+  --warn: #83590f;
+  --warn-wash: rgba(131, 89, 15, 0.13);
+  --bad: #9a3a34;
+  --bad-wash: rgba(154, 58, 52, 0.11);
+  --busy: #3b5c86;
+  --busy-wash: rgba(59, 92, 134, 0.12);
 
-  --ok: #2f6b4a;
-  --ok-wash: rgba(47, 107, 74, 0.11);
-  --warn: #9a6f28;
-  --warn-wash: rgba(154, 111, 40, 0.12);
-  --bad: #9c3f36;
-  --bad-wash: rgba(156, 63, 54, 0.1);
-  --busy: #4b6b8a;
-  --busy-wash: rgba(75, 107, 138, 0.12);
-
-  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
-  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-brand: "Jost", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-sans: "Libre Franklin", ui-sans-serif, system-ui, sans-serif;
+  --font-brand: "Libre Franklin", ui-sans-serif, system-ui, sans-serif;
   --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
 
-  --radius: 7px;
+  --radius: 4px;
   --gutter: clamp(16px, 3.6vw, 36px);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #211e27;
-    --bg-raised: #292531;
-    --bg-sunken: #1a171f;
-    --ink: #efe9e6;
-    --ink-muted: #b4acb8;
-    --ink-faint: #8b8392;
-    --accent: #e4906a;
-    --accent-text: #e9a481;
-    --rule: rgba(239, 233, 230, 0.14);
-    --rule-strong: rgba(239, 233, 230, 0.3);
+    /* ── The same document, on a night shift ──────────────────────────── */
+    --bg: #121a20;
+    --bg-raised: #1a242b;
+    --bg-sunken: #0c1217;
+    --ink: #e7eef1;
+    --ink-muted: #99a1a6;
+    --ink-faint: #858d92;
+    --accent: #74b2dd;
+    --accent-ink: #0c1217;
+    --accent-text: #74b2dd;
+    --rule: rgba(231, 238, 241, 0.14);
+    --rule-strong: rgba(231, 238, 241, 0.37);
 
-    --ok: #6cb28c;
-    --ok-wash: rgba(108, 178, 140, 0.13);
-    --warn: #d9ac5a;
-    --warn-wash: rgba(217, 172, 90, 0.14);
-    --bad: #e08a7e;
-    --bad-wash: rgba(224, 138, 126, 0.12);
-    --busy: #8fb0cf;
-    --busy-wash: rgba(143, 176, 207, 0.14);
+    --ok: #6fbf98;
+    --ok-wash: rgba(111, 191, 152, 0.16);
+    --warn: #d8ab5c;
+    --warn-wash: rgba(216, 171, 92, 0.16);
+    --bad: #e5897f;
+    --bad-wash: rgba(229, 137, 127, 0.16);
+    --busy: #8fb6e0;
+    --busy-wash: rgba(143, 182, 224, 0.16);
   }
 }
 
-@font-face { font-family: "Fraunces"; src: url("/fonts/fraunces-variable.woff2") format("woff2-variations"); font-weight: 100 900; font-display: swap; }
-@font-face { font-family: "IBM Plex Sans"; src: url("/fonts/ibm-plex-sans-variable.woff2") format("woff2-variations"); font-weight: 100 700; font-display: swap; }
-@font-face { font-family: "Jost"; src: url("/fonts/jost-variable.woff2") format("woff2-variations"); font-weight: 100 900; font-display: swap; }
+/*
+ * Newsreader carries an optical-size axis. The masthead is set at the
+ * display end of it and the panel headings at the text end, which is the
+ * difference between a serif that looks designed at 27px and one that is
+ * still readable at 17px — out of one file.
+ */
+@font-face {
+  font-family: "Newsreader";
+  src: url("/fonts/newsreader-variable.woff2") format("woff2-variations");
+  font-weight: 200 800;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Libre Franklin";
+  src: url("/fonts/libre-franklin-variable.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-display: swap;
+}
 
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
@@ -112,10 +148,10 @@ button, select, input { font: inherit; color: inherit; }
 
 .wordmark {
   font-family: var(--font-brand);
-  font-size: clamp(28px, 5.5vw, 42px);
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-size: clamp(26px, 5vw, 38px);
+  /* The masthead of a document, not a brand mark: heavy, tight, upright. */
+  font-weight: 800;
+  letter-spacing: -0.025em;
   line-height: 1;
 }
 
@@ -123,7 +159,8 @@ button, select, input { font: inherit; color: inherit; }
 
 .masthead__sub {
   font-family: var(--font-display);
-  font-size: clamp(14px, 2.2vw, 18px);
+  font-size: clamp(15px, 2.4vw, 20px);
+  font-variation-settings: "opsz" 36;
   font-style: italic;
   color: var(--ink-muted);
 }
@@ -260,7 +297,7 @@ button, select, input { font: inherit; color: inherit; }
 }
 
 .why__item + .why__item { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--rule); }
-.why__item h3 { font-family: var(--font-display); font-size: 17px; margin-bottom: 5px; }
+.why__item h3 { font-family: var(--font-display); font-variation-settings: "opsz" 20; font-size: 18px; font-weight: 600; margin-bottom: 5px; }
 .why__item ul { margin: 0; padding-left: 20px; color: var(--ink-muted); font-size: 13.5px; }
 .why__item li { margin-bottom: 2px; }
 
@@ -310,7 +347,7 @@ table { width: 100%; border-collapse: collapse; }
 
 /* ── People ─────────────────────────────────────────────────────────── */
 
-.people h2 { font-family: var(--font-display); font-size: 20px; margin-bottom: 8px; }
+.people h2 { font-family: var(--font-display); font-variation-settings: "opsz" 24; font-size: 21px; font-weight: 600; margin-bottom: 8px; }
 
 .staff th {
   text-align: left;

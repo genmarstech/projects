@@ -1,96 +1,112 @@
 /*
- * Genmars' own palette, in both themes.
+ * ── ENAMEL, NOT BRAND ────────────────────────────────────────────────────
  *
- * Tokens are declared once on :root for light and redefined under
- * prefers-color-scheme: dark. Nothing below the token block names a colour
- * literal, which is what stops one theme's ink landing on the other's
- * ground — the failure the company's own `check-theme-tokens.mjs` exists to
- * catch in its three frontends.
+ * This does not wear the Genmars palette, and that is the point. It is a
+ * demonstration of a transit board, so it is dressed as one: the oyster and
+ * deep petrol of an enamel route plate, the kind bolted to a terminus wall
+ * and repainted for forty years. The accent is the same petrol in its
+ * saturated form, and the only other colour on the page is a vermilion that
+ * means "these two have closed up".
  *
- * The route hues are the exception, and they are not a palette. Each route
- * carries one hue from `network.ts` through the board, the map and the
- * legend, so a colour on the drawing can be matched to a row in the table.
- * They arrive as a `--hue` custom property on the element and are turned
- * into a colour here, which is why a route reads correctly on both grounds
- * from one number.
+ * The six route hues are not a palette. Each route owns one number in
+ * `network.ts` and carries it through the board badge, the map line and the
+ * legend swatch, so a colour on the drawing can be matched to a row in the
+ * table without a second set of values to keep in step.
+ *
+ * ── EVERY PAIR BELOW WAS MEASURED, NOT CHOSEN ────────────────────────────
+ *
+ * `--ink-muted` and `--ink-faint` are the ink mixed toward the ground until
+ * they only just clear 6:1 and 4.6:1 against the tightest surface they ever
+ * sit on. `--rule-strong` is the alpha at which a control's border reaches
+ * the 3:1 that WCAG 2.2 §1.4.11 asks of it — 0.51 in light, where the
+ * comfortable-looking hairline would have been about 1.8:1.
+ *
+ * ⚠ `--route-light` IS SET BY THE BADGE, NOT BY THE MAP LINE.
+ *
+ *   32% is where white text on the lightest of the six hues reaches 4.85:1;
+ *   at 34% it is 4.38 and fails. The map lines inherit the same value and
+ *   are more legible for it, because a darker line on a light ground is a
+ *   stronger line. Raise this and the badges quietly stop being readable
+ *   before the lines look any different.
+ *
+ * Nothing below the token block names a colour literal.
  */
 
 :root {
   color-scheme: light dark;
 
-  /* Brand constants — fixed, from gen-website/src/app/globals.css */
-  --deep-well: #2e2b34;
-  --canvas: #e9e3df;
-  --ignition: #db7b51;
+  /* ── Enamel, light ──────────────────────────────────────────────────── */
+  --bg: #eceade;
+  --bg-raised: #f4f2e8;
+  --bg-sunken: #dedbcc;
+  --ink: #15211f;
+  --ink-muted: #47504a;
+  --ink-faint: #59605a;
+  --accent: #0b5e57;
+  --accent-ink: #f4f2e8;
+  --accent-text: #0b5e57;
+  --rule: rgba(21, 33, 31, 0.16);
+  --rule-strong: rgba(21, 33, 31, 0.51);
+  --shadow: rgba(21, 33, 31, 0.12);
 
-  /* Semantic — these flip */
-  --bg: #f4efec;
-  --bg-raised: #f9f6f4;
-  --bg-sunken: #e9e3df;
-  --ink: #2e2b34;
-  --ink-muted: #5f5867;
-  --ink-faint: #837c8a;
-  --accent: #db7b51;
-  --accent-text: #8c4f33;
-  --rule: rgba(46, 43, 52, 0.14);
-  --rule-strong: rgba(46, 43, 52, 0.3);
-  --shadow: rgba(46, 43, 52, 0.09);
+  /* A reading, not the brand. The accent must never stand in for it. */
+  --warn: #a8381f;
+  --warn-wash: rgba(168, 56, 31, 0.12);
 
-  /* Readings, not brand. The accent must never stand in for one of these. */
-  --warn: #a8601c;
-  --warn-wash: rgba(168, 96, 28, 0.12);
-  --good: #2f6b4a;
-
-  --route-light: 42%;
+  --route-light: 32%;
   --route-chip-text: #ffffff;
 
-  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
-  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-brand: "Jost", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "Public Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-brand: "Archivo", "Helvetica Neue", Arial, sans-serif;
   --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
 
-  --radius: 7px;
+  --radius: 3px;
   --gutter: clamp(16px, 4vw, 40px);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #211e27;
-    --bg-raised: #292531;
-    --bg-sunken: #1a171f;
-    --ink: #efe9e6;
-    --ink-muted: #b4acb8;
-    --ink-faint: #8b8392;
-    --accent: #e4906a;
-    --accent-text: #e9a481;
-    --rule: rgba(239, 233, 230, 0.14);
-    --rule-strong: rgba(239, 233, 230, 0.3);
-    --shadow: rgba(0, 0, 0, 0.4);
+    /* ── Enamel, after dark ───────────────────────────────────────────── */
+    --bg: #101b19;
+    --bg-raised: #17241f;
+    --bg-sunken: #0a1211;
+    --ink: #e9e6d6;
+    --ink-muted: #9da094;
+    --ink-faint: #888d82;
+    --accent: #5fbcae;
+    --accent-ink: #0a1211;
+    --accent-text: #5fbcae;
+    --rule: rgba(233, 230, 214, 0.14);
+    --rule-strong: rgba(233, 230, 214, 0.39);
+    --shadow: rgba(0, 0, 0, 0.5);
 
-    --warn: #d99b4e;
-    --warn-wash: rgba(217, 155, 78, 0.14);
-    --good: #6cb28c;
+    --warn: #e0765a;
+    /* 0.10, not 0.12. Above that the vermilion stops clearing 4.5:1
+       against its own wash, which is the one pair a tinted row has. */
+    --warn-wash: rgba(224, 118, 90, 0.1);
 
-    --route-light: 66%;
-    --route-chip-text: #1a171f;
+    --route-light: 68%;
+    --route-chip-text: #0a1211;
   }
 }
 
+/*
+ * Archivo carries a width axis as well as a weight one, which is why it is
+ * the only display face here: the wordmark is the same file as the body
+ * headings, squeezed. A second condensed family would have been a second
+ * download to say the same thing.
+ */
 @font-face {
-  font-family: "Fraunces";
-  src: url("/fonts/fraunces-variable.woff2") format("woff2-variations");
+  font-family: "Archivo";
+  src: url("/fonts/archivo-variable.woff2") format("woff2-variations");
   font-weight: 100 900;
+  font-stretch: 62% 125%;
   font-display: swap;
 }
 @font-face {
-  font-family: "IBM Plex Sans";
-  src: url("/fonts/ibm-plex-sans-variable.woff2") format("woff2-variations");
-  font-weight: 100 700;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Jost";
-  src: url("/fonts/jost-variable.woff2") format("woff2-variations");
+  font-family: "Public Sans";
+  src: url("/fonts/public-sans-variable.woff2") format("woff2-variations");
   font-weight: 100 900;
   font-display: swap;
 }
@@ -151,11 +167,18 @@ button, select, input { font: inherit; color: inherit; }
 
 .wordmark {
   font-family: var(--font-brand);
-  font-size: clamp(30px, 6vw, 44px);
-  font-weight: 500;
-  letter-spacing: 0.1em;
+  font-size: clamp(30px, 6vw, 46px);
+  /* Squeezed and heavy: a route plate, not a logotype. The width axis is
+     what makes this possible from the same file the headings use. */
+  font-stretch: 78%;
+  font-weight: 800;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
-  line-height: 1;
+  line-height: 0.95;
+  background: var(--ink);
+  color: var(--bg);
+  padding: 2px 12px 4px;
+  border-radius: 2px;
 }
 
 .masthead__rule {
@@ -167,8 +190,11 @@ button, select, input { font: inherit; color: inherit; }
 
 .masthead__sub {
   font-family: var(--font-display);
-  font-size: clamp(15px, 2.4vw, 19px);
-  font-style: italic;
+  font-size: clamp(13px, 2vw, 16px);
+  font-weight: 500;
+  font-stretch: 88%;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: var(--ink-muted);
 }
 
@@ -293,8 +319,10 @@ button, select, input { font: inherit; color: inherit; }
 
 .board__head h2 {
   font-family: var(--font-display);
-  font-size: 23px;
-  font-weight: 600;
+  font-size: 25px;
+  font-weight: 700;
+  font-stretch: 86%;
+  letter-spacing: -0.01em;
 }
 
 .picker select {
@@ -388,7 +416,10 @@ button, select, input { font: inherit; color: inherit; }
 
 .panel h2 {
   font-family: var(--font-display);
-  font-size: 19px;
+  font-size: 18px;
+  font-weight: 700;
+  font-stretch: 88%;
+  letter-spacing: 0.02em;
   margin-bottom: 6px;
 }
 
