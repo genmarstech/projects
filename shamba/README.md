@@ -182,8 +182,36 @@ officer should not depend on how the device ids happen to sort.
 have never synced each count from 1, so the actor tiebreak gets exercised by
 the replay rather than being dead code that has never run.
 
+---
+
+## How it looks, and why it is not the house style
+
+**Field notebook.** The five projects in this repository deliberately do not
+share a palette. Each is a demonstration of a different thing and is
+dressed as that thing; only `kioo`, which *is* the Genmars design system,
+wears the company's colours. A portfolio where every piece looks the same
+is a portfolio that shows one piece.
+
+Dry paper, an olive-black pencil and a stamp-blue biro. Bitter for the
+headings, Karla for everything read at arm's length. The accent is the
+biro: it marks what the officer did, and nothing else on the page may use
+it.
+
+**`--pending` is `#7d5111`, not the ochre above it.** `#8a5a12` is 4.46:1
+against its own wash — a chip that reads perfectly well right up until
+somebody tints the row behind it.
+
+Both themes are measured rather than eyeballed. `--ink-muted` and
+`--ink-faint` are the ink mixed toward the ground until they only just
+clear 6:1 and 4.6:1 against the tightest surface they ever sit on, and
+`--rule-strong` is the alpha at which a control's border reaches the 3:1
+that WCAG 2.2 §1.4.11 asks of it — the comfortable-looking hairline was
+about 1.8:1.
+
+---
+
 ## Deploying
 
 Vercel, as a static build — `npm run build` and the contents of `dist/`,
-with no server-side anything. The three typefaces are self-hosted in
+with no server-side anything. Bitter and Karla are self-hosted in
 `public/fonts/` under the SIL Open Font Licence, included alongside them.
