@@ -159,8 +159,39 @@ spread, both in `seededSchedule`. The detection threshold is 40% of the
 planned headway, and vehicles inside the first 600 m are excluded because a
 terminus rank is a queue, not a bunch.
 
+---
+
+## How it looks, and why it is not the house style
+
+**Transit enamel.** The five projects in this repository deliberately do not
+share a palette. Each is a demonstration of a different thing and is
+dressed as that thing; only `kioo`, which *is* the Genmars design system,
+wears the company's colours. A portfolio where every piece looks the same
+is a portfolio that shows one piece.
+
+The oyster and deep petrol of an enamel route plate — the kind bolted to a
+terminus wall and repainted for forty years. The wordmark is set in Archivo
+squeezed along its width axis, so the plate and the panel headings come out
+of one file. Body text is Public Sans. The only colour that is not the
+paper, the ink or a route is the vermilion that means two vehicles have
+closed up.
+
+**`--route-light` is set by the badge, not by the map line.** 32% is where
+white text on the lightest of the six hues reaches 4.85:1; at 34% it is
+4.38 and fails. The lines inherit it and are more legible for it, because a
+darker line on a light ground is a stronger line.
+
+Both themes are measured rather than eyeballed. `--ink-muted` and
+`--ink-faint` are the ink mixed toward the ground until they only just
+clear 6:1 and 4.6:1 against the tightest surface they ever sit on, and
+`--rule-strong` is the alpha at which a control's border reaches the 3:1
+that WCAG 2.2 §1.4.11 asks of it — the comfortable-looking hairline was
+about 1.8:1.
+
+---
+
 ## Deploying
 
 Vercel, as a static build — `npm run build` and the contents of `dist/`,
-with no server-side anything. The three typefaces are self-hosted in
+with no server-side anything. Archivo and Public Sans are self-hosted in
 `public/fonts/` under the SIL Open Font Licence, included alongside them.

@@ -1,77 +1,103 @@
 /*
- * Genmars' palette, both themes, tokens first.
+ * ── A FIELD NOTEBOOK, NOT THE BRAND ──────────────────────────────────────
  *
- * Same discipline as the company's three frontends: brand constants are
- * fixed, semantic tokens flip, and nothing below the token block names a
- * colour literal — so a background taken from one set and text from the
- * other cannot produce a light band with light text in it.
+ * This does not wear the Genmars palette. It is dressed as the thing it
+ * replaces: a dry paper survey book with an olive-black pencil and a
+ * stamp-blue biro. The accent is that biro — it marks what the officer has
+ * done, and nothing else on the page is allowed to use it.
  *
- * Two state colours are declared and they are not the accent. `--pending`
- * means "this phone has it and the server does not", and `--settled` means
- * "both have it". A form that borrowed the brand colour for one of those
- * would be saying something about Genmars where it meant to say something
- * about the record.
+ * ── THREE STATE COLOURS, AND NONE OF THEM IS THE ACCENT ──────────────────
+ *
+ * `--pending` means this phone has it and the server does not. `--settled`
+ * means both have it. `--lost` means a write was discarded. Those are
+ * statements about a record; the accent is a statement about whose
+ * application this is, and a form that used one for the other would be
+ * saying the wrong thing in the right colour.
+ *
+ * ── MEASURED, NOT CHOSEN ─────────────────────────────────────────────────
+ *
+ * `--ink-muted` and `--ink-faint` are the ink mixed toward the ground until
+ * they only just clear 6:1 and 4.6:1 on the tightest surface they sit on.
+ * `--rule-strong` is the alpha at which a control's border reaches the 3:1
+ * WCAG 2.2 §1.4.11 asks of it.
+ *
+ * ⚠ `--pending` IS #7d5111 AND NOT THE OCHRE ABOVE IT.
+ *
+ *   The obvious ochre, #8a5a12, is 4.46:1 against its own wash — a chip
+ *   that reads perfectly well until somebody tints the row behind it. Two
+ *   shades darker clears it at 5.18.
+ *
+ * Nothing below the token block names a colour literal.
  */
 
 :root {
   color-scheme: light dark;
 
-  --deep-well: #2e2b34;
-  --canvas: #e9e3df;
-  --ignition: #db7b51;
+  /* ── Paper ──────────────────────────────────────────────────────────── */
+  --bg: #f1efe4;
+  --bg-raised: #f8f6ec;
+  --bg-sunken: #e3e0d1;
+  --ink: #232a1f;
+  --ink-muted: #4d5246;
+  --ink-faint: #5f6256;
+  --accent: #2e4a7d;
+  --accent-ink: #f8f6ec;
+  --accent-text: #2e4a7d;
+  --rule: rgba(35, 42, 31, 0.16);
+  --rule-strong: rgba(35, 42, 31, 0.53);
 
-  --bg: #f4efec;
-  --bg-raised: #faf7f5;
-  --bg-sunken: #e9e3df;
-  --ink: #2e2b34;
-  --ink-muted: #5f5867;
-  --ink-faint: #837c8a;
-  --accent: #db7b51;
-  --accent-text: #8c4f33;
-  --rule: rgba(46, 43, 52, 0.14);
-  --rule-strong: rgba(46, 43, 52, 0.3);
+  --pending: #7d5111;
+  --pending-wash: rgba(125, 81, 17, 0.13);
+  --settled: #2f6132;
+  --settled-wash: rgba(47, 97, 50, 0.12);
+  --lost: #9b3a2e;
+  --lost-wash: rgba(155, 58, 46, 0.11);
 
-  --pending: #9a6f28;
-  --pending-wash: rgba(154, 111, 40, 0.12);
-  --settled: #2f6b4a;
-  --settled-wash: rgba(47, 107, 74, 0.1);
-  --lost: #9c3f36;
-  --lost-wash: rgba(156, 63, 54, 0.09);
-
-  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
-  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-brand: "Jost", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Bitter", Georgia, "Times New Roman", serif;
+  --font-sans: "Karla", ui-sans-serif, system-ui, sans-serif;
+  --font-brand: "Bitter", Georgia, serif;
   --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
 
-  --radius: 7px;
+  --radius: 4px;
   --gutter: clamp(16px, 3.6vw, 36px);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #211e27;
-    --bg-raised: #292531;
-    --bg-sunken: #1a171f;
-    --ink: #efe9e6;
-    --ink-muted: #b4acb8;
-    --ink-faint: #8b8392;
-    --accent: #e4906a;
-    --accent-text: #e9a481;
-    --rule: rgba(239, 233, 230, 0.14);
-    --rule-strong: rgba(239, 233, 230, 0.3);
+    /* ── The same book, under a lamp ──────────────────────────────────── */
+    --bg: #1a1d17;
+    --bg-raised: #22261c;
+    --bg-sunken: #121410;
+    --ink: #eceadd;
+    --ink-muted: #a3a398;
+    --ink-faint: #8d8e82;
+    --accent: #8fb0dd;
+    --accent-ink: #121410;
+    --accent-text: #8fb0dd;
+    --rule: rgba(236, 234, 221, 0.14);
+    --rule-strong: rgba(236, 234, 221, 0.38);
 
-    --pending: #d9ac5a;
-    --pending-wash: rgba(217, 172, 90, 0.14);
-    --settled: #6cb28c;
-    --settled-wash: rgba(108, 178, 140, 0.12);
-    --lost: #e08a7e;
-    --lost-wash: rgba(224, 138, 126, 0.12);
+    --pending: #d6a855;
+    --pending-wash: rgba(214, 168, 85, 0.16);
+    --settled: #7fc07a;
+    --settled-wash: rgba(127, 192, 122, 0.16);
+    --lost: #e2887a;
+    --lost-wash: rgba(226, 136, 122, 0.16);
   }
 }
 
-@font-face { font-family: "Fraunces"; src: url("/fonts/fraunces-variable.woff2") format("woff2-variations"); font-weight: 100 900; font-display: swap; }
-@font-face { font-family: "IBM Plex Sans"; src: url("/fonts/ibm-plex-sans-variable.woff2") format("woff2-variations"); font-weight: 100 700; font-display: swap; }
-@font-face { font-family: "Jost"; src: url("/fonts/jost-variable.woff2") format("woff2-variations"); font-weight: 100 900; font-display: swap; }
+@font-face {
+  font-family: "Bitter";
+  src: url("/fonts/bitter-variable.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Karla";
+  src: url("/fonts/karla-variable.woff2") format("woff2-variations");
+  font-weight: 200 800;
+  font-display: swap;
+}
 
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
@@ -111,18 +137,18 @@ textarea { resize: vertical; }
 .wordmark {
   font-family: var(--font-brand);
   font-size: clamp(28px, 5.5vw, 42px);
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  /* A heading written on the cover, not a logotype stamped on it. */
+  font-weight: 700;
+  letter-spacing: -0.015em;
   line-height: 1;
 }
 
 .masthead__rule { flex: 1 1 40px; height: 1px; background: var(--rule); align-self: center; }
 
 .masthead__sub {
-  font-family: var(--font-display);
-  font-size: clamp(14px, 2.2vw, 18px);
-  font-style: italic;
+  font-family: var(--font-sans);
+  font-size: clamp(13px, 2vw, 16px);
+  font-weight: 500;
   color: var(--ink-muted);
 }
 

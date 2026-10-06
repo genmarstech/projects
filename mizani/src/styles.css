@@ -1,74 +1,115 @@
 /*
- * Genmars' palette, both themes, tokens first — the same discipline as the
- * company's three frontends. Nothing below the token block names a colour
- * literal, so a surface and the text on it cannot be drawn from different
- * sets and produce a light band with light text in it.
+ * ── GREENBAR, NOT THE BRAND ──────────────────────────────────────────────
  *
- * This page is a tool rather than a document, so the type is smaller, the
- * rhythm is denser and the monospace face does more work: a column name, a
- * statement and a plan line are all things a reader scans for shape before
- * they read them.
+ * This does not wear the Genmars palette. It is a query console over a
+ * table of takings, so it is dressed as the paper that job was done on for
+ * forty years: continuous-form greenbar, with its alternating bands, and a
+ * printer-ribbon plum for the one colour that is not the paper or the ink.
+ *
+ * The banding on the result table is the reference made literal — and it
+ * is also the reason it is there, because a wide row of figures is easier
+ * to track across when every other one is tinted. A decoration that earns
+ * its place twice.
+ *
+ * ── THREE READINGS, AND NONE OF THEM IS THE ACCENT ───────────────────────
+ *
+ * `--dict` and `--numeric` say how a column is stored, which is the whole
+ * argument of the page; `--bad` says a statement did not parse. The accent
+ * is the chart and the active control. A schema badge in the accent colour
+ * would be saying "Mizani" where it meant "dictionary-encoded".
+ *
+ * ── MEASURED, NOT CHOSEN ─────────────────────────────────────────────────
+ *
+ * `--ink-muted` and `--ink-faint` are the ink mixed toward the ground until
+ * they only just clear 6:1 and 4.6:1 on the tightest surface they sit on,
+ * and `--rule-strong` is the alpha at which a control's border reaches the
+ * 3:1 WCAG 2.2 §1.4.11 asks of it.
+ *
+ * Nothing below the token block names a colour literal.
  */
 
 :root {
   color-scheme: light dark;
 
-  --deep-well: #2e2b34;
-  --canvas: #e9e3df;
-  --ignition: #db7b51;
+  /* ── Continuous-form paper ──────────────────────────────────────────── */
+  --bg: #e9efe6;
+  --bg-raised: #f3f7f1;
+  --bg-sunken: #d8e4d4;
+  --ink: #17201b;
+  --ink-muted: #49534b;
+  --ink-faint: #5b655c;
+  --accent: #7a3a6d;
+  --accent-ink: #ffffff;
+  --accent-text: #7a3a6d;
+  --rule: rgba(23, 32, 27, 0.16);
+  --rule-strong: rgba(23, 32, 27, 0.51);
 
-  --bg: #f4efec;
-  --bg-raised: #faf7f5;
-  --bg-sunken: #e9e3df;
-  --ink: #2e2b34;
-  --ink-muted: #5f5867;
-  --ink-faint: #837c8a;
-  --accent: #db7b51;
-  --accent-text: #8c4f33;
-  --rule: rgba(46, 43, 52, 0.14);
-  --rule-strong: rgba(46, 43, 52, 0.3);
+  --dict: #2c5a7a;
+  --dict-wash: rgba(44, 90, 122, 0.13);
+  --numeric: #64468c;
+  --numeric-wash: rgba(100, 70, 140, 0.13);
+  --bad: #9a3a2f;
+  --bad-wash: rgba(154, 58, 47, 0.11);
 
-  --dict: #3f6b7d;
-  --dict-wash: rgba(63, 107, 125, 0.12);
-  --numeric: #6a5a8c;
-  --numeric-wash: rgba(106, 90, 140, 0.12);
-  --bad: #9c3f36;
-  --bad-wash: rgba(156, 63, 54, 0.09);
+  /* The band on every other row, and deliberately weaker than the sunken
+     surface — a stripe that reads as a change of surface makes the table
+     look broken into sections it does not have. */
+  --band: rgba(23, 32, 27, 0.045);
 
-  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
-  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-brand: "Jost", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
+  --font-display: "Chivo Mono", ui-monospace, Menlo, monospace;
+  --font-sans: "Chivo", ui-sans-serif, system-ui, sans-serif;
+  --font-brand: "Chivo Mono", ui-monospace, Menlo, monospace;
+  --font-mono: "Chivo Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
-  --radius: 7px;
+  --radius: 3px;
   --gutter: clamp(16px, 3.4vw, 36px);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #211e27;
-    --bg-raised: #292531;
-    --bg-sunken: #1a171f;
-    --ink: #efe9e6;
-    --ink-muted: #b4acb8;
-    --ink-faint: #8b8392;
-    --accent: #e4906a;
-    --accent-text: #e9a481;
-    --rule: rgba(239, 233, 230, 0.14);
-    --rule-strong: rgba(239, 233, 230, 0.3);
+    /* ── The same stock, under a desk lamp ────────────────────────────── */
+    --bg: #131a16;
+    --bg-raised: #1b231d;
+    --bg-sunken: #0d1210;
+    --ink: #e5ece3;
+    --ink-muted: #9aa29a;
+    --ink-faint: #848c84;
+    --accent: #d08dc0;
+    --accent-ink: #0d1210;
+    --accent-text: #d08dc0;
+    --rule: rgba(229, 236, 227, 0.14);
+    --rule-strong: rgba(229, 236, 227, 0.38);
 
-    --dict: #88b4c7;
-    --dict-wash: rgba(136, 180, 199, 0.14);
-    --numeric: #b2a0d4;
-    --numeric-wash: rgba(178, 160, 212, 0.14);
-    --bad: #e08a7e;
-    --bad-wash: rgba(224, 138, 126, 0.12);
+    --dict: #85b6d4;
+    --dict-wash: rgba(133, 182, 212, 0.16);
+    --numeric: #b79ae0;
+    --numeric-wash: rgba(183, 154, 224, 0.16);
+    --bad: #e28a7c;
+    --bad-wash: rgba(226, 138, 124, 0.16);
+
+    --band: rgba(229, 236, 227, 0.035);
   }
 }
 
-@font-face { font-family: "Fraunces"; src: url("/fonts/fraunces-variable.woff2") format("woff2-variations"); font-weight: 100 900; font-display: swap; }
-@font-face { font-family: "IBM Plex Sans"; src: url("/fonts/ibm-plex-sans-variable.woff2") format("woff2-variations"); font-weight: 100 700; font-display: swap; }
-@font-face { font-family: "Jost"; src: url("/fonts/jost-variable.woff2") format("woff2-variations"); font-weight: 100 900; font-display: swap; }
+/*
+ * One superfamily, two voices. Chivo Mono sets the wordmark, the column
+ * names, the statement and the plan; Chivo sets the prose. They share
+ * skeletons, so a column name and the sentence describing it look related
+ * rather than merely adjacent — which is what a console wants and what two
+ * unrelated families would have cost.
+ */
+@font-face {
+  font-family: "Chivo";
+  src: url("/fonts/chivo-variable.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Chivo Mono";
+  src: url("/fonts/chivo-mono-variable.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-display: swap;
+}
 
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
@@ -116,9 +157,10 @@ th.num { text-align: right; }
 
 .wordmark {
   font-family: var(--font-brand);
-  font-size: clamp(28px, 5.5vw, 42px);
-  font-weight: 500;
-  letter-spacing: 0.1em;
+  font-size: clamp(26px, 5vw, 40px);
+  /* Set in the mono, because the thing being named is a query engine. */
+  font-weight: 700;
+  letter-spacing: -0.03em;
   text-transform: uppercase;
   line-height: 1;
 }
@@ -126,9 +168,9 @@ th.num { text-align: right; }
 .masthead__rule { flex: 1 1 40px; height: 1px; background: var(--rule); align-self: center; }
 
 .masthead__sub {
-  font-family: var(--font-display);
-  font-size: clamp(14px, 2.2vw, 18px);
-  font-style: italic;
+  font-family: var(--font-sans);
+  font-size: clamp(13px, 2vw, 16px);
+  font-weight: 400;
   color: var(--ink-muted);
 }
 
@@ -313,7 +355,7 @@ tbody tr:last-child td { border-bottom: none; }
 
 .results { background: var(--bg-raised); border: 1px solid var(--rule); border-radius: var(--radius); padding: 13px 16px; }
 .results__head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 8px; }
-.results__head h2 { font-family: var(--font-display); font-size: 19px; }
+.results__head h2 { font-family: var(--font-display); font-size: 17px; font-weight: 700; letter-spacing: -0.02em; }
 .results__head .muted { font-size: 12.5px; }
 
 /*
@@ -324,6 +366,7 @@ tbody tr:last-child td { border-bottom: none; }
  * would move the masthead sideways and make the editor hard to get back to.
  */
 .results__scroll { max-height: 440px; overflow: auto; }
+.results__scroll tbody tr:nth-child(even) { background: var(--band); }
 .results__scroll th { position: sticky; top: 0; background: var(--bg-raised); z-index: 1; }
 
 /* ── Drop ───────────────────────────────────────────────────────────── */

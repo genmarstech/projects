@@ -201,9 +201,38 @@ exercised outside the browser.
 wide table is a legitimate thing to type, and the answer is a scrollbar on
 that element — never on the page, which would move the masthead sideways.
 
+---
+
+## How it looks, and why it is not the house style
+
+**Greenbar.** The five projects in this repository deliberately do not
+share a palette. Each is a demonstration of a different thing and is
+dressed as that thing; only `kioo`, which *is* the Genmars design system,
+wears the company's colours. A portfolio where every piece looks the same
+is a portfolio that shows one piece.
+
+Continuous-form ledger paper, with its alternating bands, and a
+printer-ribbon plum for the one colour that is neither paper nor ink. The
+banding on the result table is the reference made literal — and also the
+reason it existed, because a wide row of figures is easier to track across
+when every other one is tinted.
+
+Chivo Mono sets the wordmark, the column names, the statement and the plan;
+Chivo sets the prose. One superfamily, two voices: a column name and the
+sentence describing it look related rather than merely adjacent.
+
+Both themes are measured rather than eyeballed. `--ink-muted` and
+`--ink-faint` are the ink mixed toward the ground until they only just
+clear 6:1 and 4.6:1 against the tightest surface they ever sit on, and
+`--rule-strong` is the alpha at which a control's border reaches the 3:1
+that WCAG 2.2 §1.4.11 asks of it — the comfortable-looking hairline was
+about 1.8:1.
+
+---
+
 ## Deploying
 
 Vercel, as a static build — `npm run build` and the contents of `dist/`,
-with no server-side anything. The worker ships as its own chunk. The three
-typefaces are self-hosted in `public/fonts/` under the SIL Open Font
+with no server-side anything. The worker ships as its own chunk.
+Chivo and Chivo Mono are self-hosted in `public/fonts/` under the SIL Open Font
 Licence, included alongside them.
