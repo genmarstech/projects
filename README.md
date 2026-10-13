@@ -15,6 +15,7 @@ design implementations. One folder per project, each standing on its own.
 | [`ratiba`](./ratiba) | Duty roster solver — backtracking with MRV in a cancellable Web Worker, and an explanation when no rota exists | Vite · React · TypeScript |
 | [`kioo`](./kioo) | The Genmars design system — tokens, eight components, and contrast measured in the browser rather than documented | Vite · React · TypeScript |
 | [`mizani`](./mizani) | Columnar query engine — dictionary-encoded store, a hand-written SQL subset, and a plan that says what it read | Vite · React · TypeScript |
+| [`deewee`](./deewee) | DeeWee Natural Oils — a hair-oil shopfront built from a Claude Design handoff, with a two-question routine quiz and a draggable before/after | Vite · React · TypeScript |
 
 ## How this repo is arranged
 
